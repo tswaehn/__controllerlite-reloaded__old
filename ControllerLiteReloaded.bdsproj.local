@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2012.02.05 18:30:37.147.pas,C:\Users\ginka\Documents\Borland Studio-Projekte\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\main.pas</Transaction>
+    <Transaction>2012.02.05 18:30:37.147.dfm,C:\Users\ginka\Documents\Borland Studio-Projekte\Unit1.dfm=L:\delphi\ControllerLiteReloaded\src\main.dfm</Transaction>
+    <Transaction>2012.02.05 18:30:42.707.bdsproj,C:\Users\ginka\Documents\Borland Studio-Projekte\Project1.bdsproj=L:\delphi\ControllerLiteReloaded\ControllerLiteReloaded.bdsproj</Transaction>
+    <Transaction>2012.02.05 18:33:50.456.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\GenericConnector.pas</Transaction>
+    <Transaction>2012.02.05 18:36:55.120.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\SerialComPort.pas</Transaction>
+  </Transactions>
+</BorlandProject>
