@@ -10,7 +10,11 @@ type TSerialComPort = class (TGenericConnector)
   constructor create(AOwner : TComponent );
   destructor destroy();
 
-  procedure setup(); override;
+    procedure setup(); override;
+    procedure connect(); override;
+    procedure disconnect(); override;
+
+    function connected():boolean; override;    
 
   private
     comPort : TComPort;
@@ -21,22 +25,47 @@ implementation
 
 constructor TSerialComPort.create( AOwner : TComponent );
 begin
-  name := 'SerialComPort';
+
   comPort := TComPort.Create( AOwner );
+
+  cName := 'SerialComPort';
+  cType := comPort.Port;
 end;
 
-destructor TSerialComPort.destroy() : destroy;
+destructor TSerialComPort.destroy();
 begin
  comPort.Free;
 end;
 
 procedure TSerialComPort.setup;
 begin
+  try
   comPort.ShowSetupDialog();
-  comPort.Open;
-  comPort.WriteStr('hello world'+#13+#10);
-  
+  finally
 
+  end;
+  cType := comPort.Port;
+end;
+
+procedure TSerialComPort.connect;
+begin
+  if comPort.Connected then begin
+    exit;
+  end;
+  comPort.Open;
+end;
+
+procedure TSerialComPort.disconnect;
+begin
+  if comPort.Connected = false then begin
+    exit;
+  end;
+  comPort.Close;
+end;
+
+function TSerialComPort.connected():boolean;
+begin
+  connected := comPort.connected;
 end;
 
 end.

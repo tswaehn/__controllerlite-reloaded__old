@@ -4,22 +4,23 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, GenericConnector, SerialComPort, CPort;
+  Dialogs, StdCtrls, ConnectorList, SerialComPort, CPort, Grids, ComCtrls,ConnectionFrame,
+  ExtCtrls;
 
 type
   TForm1 = class(TForm)
-    Button1: TButton;
-    Label1: TLabel;
-    ComPort1: TComPort;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
     procedure FormCreate(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
 
   private
     { Private-Deklarationen }
-    connection : TGenericConnector;
+
 
   public
     { Public-Deklarationen }
+    frame : TFrame;
   end;
 
 var
@@ -29,17 +30,20 @@ implementation
 
 {$R *.dfm}
 
-procedure TForm1.Button1Click(Sender: TObject);
-begin
-  connection.setup;
-  //ComPort1.ShowSetupDialog;
-end;
+
 
 procedure TForm1.FormCreate(Sender: TObject);
+var tabsheet : ttabsheet;
 begin
-  connection :=  TSerialComport.create( self );
 
-  label1.Caption := connection.name;
+
+  //http://edn.embarcadero.com/article/32047
+(*
+  tabsheet := pagecontrol1.ActivePage;
+
+*)
+  frame := TFrame1.create( Tabsheet1 );
+  frame.Parent := Tabsheet1;
 end;
 
 end.

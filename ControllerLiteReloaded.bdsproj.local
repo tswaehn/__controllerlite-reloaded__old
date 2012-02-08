@@ -6,5 +6,8 @@
     <Transaction>2012.02.05 18:30:42.707.bdsproj,C:\Users\ginka\Documents\Borland Studio-Projekte\Project1.bdsproj=L:\delphi\ControllerLiteReloaded\ControllerLiteReloaded.bdsproj</Transaction>
     <Transaction>2012.02.05 18:33:50.456.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\GenericConnector.pas</Transaction>
     <Transaction>2012.02.05 18:36:55.120.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\SerialComPort.pas</Transaction>
+    <Transaction>2012.02.08 15:50:07.596.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\ConnectorList.pas</Transaction>
+    <Transaction>2012.02.08 17:09:43.292.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\ConnectionFrame.pas</Transaction>
+    <Transaction>2012.02.08 17:09:43.292.dfm,L:\delphi\ControllerLiteReloaded\Unit1.dfm=L:\delphi\ControllerLiteReloaded\src\ConnectionFrame.dfm</Transaction>
   </Transactions>
 </BorlandProject>
