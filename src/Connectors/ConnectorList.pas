@@ -5,15 +5,17 @@ uses Classes, GenericConnector, SerialComPort, StdCtrls, SysUtils;
 
 type TConnectorList = class( TList )
 
-  constructor create( AOwner : TObject );
+  constructor create();
   destructor destroy();
 
   procedure loadConnectors();
 
+  function createConnector( className : string ):TGenericConnector;
+
 
   function edit( index : integer ):integer;
   function toggleConnect( index: integer ):integer;
-  
+
   function sortUp( index : integer ) : integer;
   function sortDown( index : integer ) : integer;
 
@@ -24,17 +26,22 @@ end;
 
 implementation
 
-constructor TConnectorList.create( AOwner : TObject );
+constructor TConnectorList.create();
 begin
   inherited Create;
+  RegisterClass( TGenericConnector );
+  RegisterClass( TSerialComport );
 
+  createConnector( 'TSerialComPort' );
+  createConnector( 'TSerialComPort' );
 
-  loadConnectors();
 end;
 
 destructor TConnectorList.destroy;
 var connector: TGenericConnector;
 begin
+  inherited destroy;
+
   while (Count > 0) do begin
     connector := first;
     remove( connector );
@@ -43,15 +50,23 @@ begin
 end;
 
 
+function TConnectorList.createConnector( className : string ):TGenericConnector;
+var connectorClass : TPersistentClass;
+    connector : TGenericConnector;
+begin
+
+    connectorClass := findClass( className ) ;
+    connector := TGenericConnector( connectorClass.Create());
+    connector.create();
+
+    add( connector );
+
+    createConnector := connector;
+end;
+
 procedure TConnectorList.loadConnectors();
 var connector : TGenericConnector;
 begin
-  // lade aus datei, hier nur zum testen
-  connector := TSerialComport.create(nil);
-  add( connector );
-
-  connector := TSerialComport.create(nil);
-  add( connector );
 
 end;
 

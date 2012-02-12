@@ -7,8 +7,8 @@ uses genericConnector, classes, cport;
 
 type TSerialComPort = class (TGenericConnector)
 
-  constructor create(AOwner : TComponent );
-  destructor destroy();
+  constructor create(); override;
+  destructor destroy(); override;
 
     procedure setup(); override;
     procedure connect(); override;
@@ -24,13 +24,16 @@ type TSerialComPort = class (TGenericConnector)
 
 end;
 
+type TSerialComPortClass = class of TSerialComPort;
+
 implementation
 
-constructor TSerialComPort.create( AOwner : TComponent );
+constructor TSerialComPort.create();
 begin
+  inherited create();
 
-  comPort := TComPort.Create( AOwner );
-  comPortDataPacket := TComDataPacket.Create( AOwner );
+  comPort := TComPort.Create( nil );
+  comPortDataPacket := TComDataPacket.Create( nil );
   comPortDataPacket.ComPort := comPort;
   comPortDataPacket.StopString := #13+#10;
 

@@ -12,7 +12,8 @@ uses
   ProfileFrame in 'src\Profiles\ProfileFrame.pas' {ProfileView: TFrame},
   TerminalFrame in 'src\Terminals\TerminalFrame.pas' {TerminalView: TFrame},
   ProfileList in 'src\Profiles\ProfileList.pas',
-  tabManager in 'src\tabManager.pas';
+  tabManager in 'src\tabManager.pas',
+  ProfileSettings in 'src\Profiles\ProfileSettings.pas';
 
 {$R *.res}
 

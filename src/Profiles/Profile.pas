@@ -2,7 +2,7 @@ unit Profile;
 
 interface
 
-uses ComCtrls, TerminalFrame, TabManager;
+uses ComCtrls, Classes, TerminalFrame, TabManager, ProfileSettings, GenericConnector, SerialComPort;
 
 type TProfile = class ( TObject )
 
@@ -18,6 +18,8 @@ type TProfile = class ( TObject )
   public
   terminal : TTerminalView;
   tabManager : TTabManager;
+
+  settings : TProfileSettings;
   active : boolean;
 
   protected
@@ -33,10 +35,16 @@ begin
   name := 'unknown';
   active := false;
   self.tabManager := tabmanager;
+  settings := TProfileSettings.Create;
+
+
+
 end;
 
 procedure TProfile.activate();
 var tabsheet:TTabSheet;
+    connectorClass : TGenericConnectorClass;
+    connector : TGenericConnector;
 begin
     if (self.active) then begin
       exit;
@@ -49,7 +57,6 @@ begin
     terminal := TTerminalView.Create( tabsheet );
     terminal.Parent := tabsheet;
 
-    //tabmanager.setActiveTab( terminal );
 end;
 
 procedure TProfile.deactivate();

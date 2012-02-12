@@ -4,9 +4,9 @@ interface
 
 uses classes, TerminalFrame;
 
-type TGenericConnector = class (TObject)
+type TGenericConnector = class (TPersistent)
 
-  constructor create(AOwner : TComponent );
+ constructor create(); virtual;
 
 
   public
@@ -28,10 +28,14 @@ type TGenericConnector = class (TObject)
     terminal : TTerminalView;
 end;
 
+type TGenericConnectorClass = class of TGenericConnector;
+
 implementation
 
-constructor TGenericConnector.create(AOwner : TComponent );
+constructor TGenericConnector.create();
 begin
+  inherited create();
+
   cName := 'unknown connector';
   cType := 'unknown type';
 end;

@@ -38,7 +38,7 @@ constructor TConnectorView.create(AOwner: TControl);
 begin
   inherited Create( AOwner );
 
-  connectorList := TConnectorList.create( AOwner );
+  connectorList := TConnectorList.create();
 
   display();
 end;
