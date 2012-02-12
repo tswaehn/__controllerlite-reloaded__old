@@ -4,15 +4,19 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ConnectorList, SerialComPort, CPort, Grids, ComCtrls,ConnectionFrame,
-  ExtCtrls;
+  Dialogs, StdCtrls, ConnectorList, SerialComPort, CPort, Grids, ComCtrls,ConnectorFrame,
+  TerminalFrame, ProfileFrame, ProfileList, TabManager,
+  ExtCtrls, Tabs, DockTabSet, Menus;
 
 type
-  TForm1 = class(TForm)
+  TForm1 = class(TForm )
     PageControl1: TPageControl;
-    TabSheet1: TTabSheet;
-    TabSheet2: TTabSheet;
+    MainMenu1: TMainMenu;
+    Exit1: TMenuItem;
+    Help1: TMenuItem;
     procedure FormCreate(Sender: TObject);
+    procedure Exit1Click(Sender: TObject);
+    procedure Help1Click(Sender: TObject);
 
   private
     { Private-Deklarationen }
@@ -20,6 +24,13 @@ type
 
   public
     { Public-Deklarationen }
+    tabManager: TTabManager;
+
+    profiles: TProfileView;
+    connectors : TConnectorView;
+
+    terminal : TTerminalView;
+
     frame : TFrame;
   end;
 
@@ -28,22 +39,43 @@ var
 
 implementation
 
+uses HelpForm, GenericConnector;
+
 {$R *.dfm}
 
 
+
+procedure TForm1.Exit1Click(Sender: TObject);
+begin
+  Application.Terminate();
+end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 var tabsheet : ttabsheet;
 begin
 
+  tabManager := TTabManager.Create(pageControl1);
 
-  //http://edn.embarcadero.com/article/32047
-(*
-  tabsheet := pagecontrol1.ActivePage;
+  // erzeuge tab
+  tabsheet := tabManager.createTab( 'Profiles' );
 
-*)
-  frame := TFrame1.create( Tabsheet1 );
-  frame.Parent := Tabsheet1;
+  // lege die profilliste auf das tab
+  profiles := TProfileView.create( tabsheet, tabManager );
+  profiles.parent := tabsheet;
+
+
+  // erzeuge tab
+  tabsheet := tabManager.createTab( 'Connectors' );
+
+  // legen den connector frame drauf
+  connectors := TConnectorView.create( tabsheet );
+  connectors.Parent := tabsheet;
+
+end;
+
+procedure TForm1.Help1Click(Sender: TObject);
+begin
+  Help.show();
 end;
 
 end.

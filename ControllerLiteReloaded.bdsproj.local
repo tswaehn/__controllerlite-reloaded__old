@@ -9,5 +9,16 @@
     <Transaction>2012.02.08 15:50:07.596.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\ConnectorList.pas</Transaction>
     <Transaction>2012.02.08 17:09:43.292.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\ConnectionFrame.pas</Transaction>
     <Transaction>2012.02.08 17:09:43.292.dfm,L:\delphi\ControllerLiteReloaded\Unit1.dfm=L:\delphi\ControllerLiteReloaded\src\ConnectionFrame.dfm</Transaction>
+    <Transaction>2012.02.10 21:29:06.041.pas,L:\delphi\ControllerLiteReloaded\Unit2.pas=L:\delphi\ControllerLiteReloaded\src\TerminalFrame.pas</Transaction>
+    <Transaction>2012.02.10 21:29:06.041.dfm,L:\delphi\ControllerLiteReloaded\Unit2.dfm=L:\delphi\ControllerLiteReloaded\src\TerminalFrame.dfm</Transaction>
+    <Transaction>2012.02.10 21:37:48.425.pas,L:\delphi\ControllerLiteReloaded\Unit2.pas=L:\delphi\ControllerLiteReloaded\src\HelpForm.pas</Transaction>
+    <Transaction>2012.02.10 21:37:48.425.dfm,L:\delphi\ControllerLiteReloaded\Unit2.dfm=L:\delphi\ControllerLiteReloaded\src\HelpForm.dfm</Transaction>
+    <Transaction>2012.02.10 23:54:38.654.pas,L:\delphi\ControllerLiteReloaded\Unit2.pas=L:\delphi\ControllerLiteReloaded\ProfileFrame.pas</Transaction>
+    <Transaction>2012.02.10 23:54:38.654.dfm,L:\delphi\ControllerLiteReloaded\Unit2.dfm=L:\delphi\ControllerLiteReloaded\ProfileFrame.dfm</Transaction>
+    <Transaction>2012.02.11 17:40:01.596.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\Profile.pas</Transaction>
+    <Transaction>2012.02.11 17:53:29.778.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\Profiles\ProfileList.pas</Transaction>
+    <Transaction>2012.02.11 18:36:54.989.pas,L:\delphi\ControllerLiteReloaded\src\Connectors\ConnectionFrame.pas=L:\delphi\ControllerLiteReloaded\src\Connectors\ConnectorFrame.pas</Transaction>
+    <Transaction>2012.02.11 18:36:54.989.dfm,L:\delphi\ControllerLiteReloaded\src\Connectors\ConnectionFrame.dfm=L:\delphi\ControllerLiteReloaded\src\Connectors\ConnectorFrame.dfm</Transaction>
+    <Transaction>2012.02.11 22:27:24.781.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\tabManager.pas</Transaction>
   </Transactions>
 </BorlandProject>
