@@ -14,10 +14,13 @@ type TSerialComPort = class (TGenericConnector)
     procedure connect(); override;
     procedure disconnect(); override;
 
-    function connected():boolean; override;    
+    procedure onRecive( Sender: TObject ; const rxString: string );
+
+    function connected():boolean; override;
 
   private
     comPort : TComPort;
+    comPortDataPacket: TComDataPacket;
 
 end;
 
@@ -27,6 +30,12 @@ constructor TSerialComPort.create( AOwner : TComponent );
 begin
 
   comPort := TComPort.Create( AOwner );
+  comPortDataPacket := TComDataPacket.Create( AOwner );
+  comPortDataPacket.ComPort := comPort;
+  comPortDataPacket.StopString := #13+#10;
+
+  comPortDataPacket.OnPacket := onRecive;
+
 
   cName := 'SerialComPort';
   cType := comPort.Port;
@@ -62,6 +71,12 @@ begin
   end;
   comPort.Close;
 end;
+
+procedure TSerialComPort.onRecive(Sender: TObject; const rxString: string);
+begin
+       self.terminal.Memo1.Lines.Add( rxString );
+end;
+
 
 function TSerialComPort.connected():boolean;
 begin

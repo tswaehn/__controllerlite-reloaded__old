@@ -1,4 +1,4 @@
-object Frame1: TFrame1
+object ConnectorView: TConnectorView
   Left = 0
   Top = 0
   Width = 509

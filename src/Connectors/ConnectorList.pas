@@ -5,13 +5,11 @@ uses Classes, GenericConnector, SerialComPort, StdCtrls, SysUtils;
 
 type TConnectorList = class( TList )
 
-  constructor create();
+  constructor create( AOwner : TObject );
   destructor destroy();
 
   procedure loadConnectors();
 
-  procedure display();                      overload;
-  procedure display( listbox : TListBox ); overload;
 
   function edit( index : integer ):integer;
   function toggleConnect( index: integer ):integer;
@@ -20,15 +18,17 @@ type TConnectorList = class( TList )
   function sortDown( index : integer ) : integer;
 
   private
-    lastUsedListbox : TListBox;
+
 end;
 
 
 implementation
 
-constructor TConnectorList.create;
+constructor TConnectorList.create( AOwner : TObject );
 begin
-  lastUsedListbox := nil;
+  inherited Create;
+
+
   loadConnectors();
 end;
 
@@ -55,41 +55,9 @@ begin
 
 end;
 
-procedure TConnectorList.display();
-begin
-  if (lastUsedListBox = nil) then begin
-    exit;
-  end;
 
-  display( lastUsedListBox );
 
-end;
 
-procedure TConnectorList.display( listbox : TListBox );
-var i:integer;
-    strId: string;
-    connector:TGenericConnector;
-    connectStr:string;
-begin
-
-  listbox.Clear();
-  for i := 0 to Count - 1 do begin
-    connector := self.items[i];
-    if (i=0) then begin
-      strId := 'default';
-    end else begin
-      strId := IntToStr(i);
-    end;
-    if (connector.connected) then begin
-      connectStr := 'connected';
-    end else begin
-      connectStr := 'disconnected';
-    end;
-    listbox.AddItem( strId+' - ' + connector.getName()+ ' ('+connector.getType()+')'+'  --  '+'['+connectStr+']', connector );
-  end;
-
-  lastUsedListBox := listbox;
-end;
 
 function TConnectorList.edit(index: Integer):integer;
 var connector:TGenericConnector;
@@ -100,8 +68,6 @@ begin
 
   connector := items[index];
   connector.setup();
-
-  display();
 
   edit:= index;
 end;
@@ -120,8 +86,6 @@ begin
 
   end;
 
-  display();
-
   toggleConnect:= index;
 end;
 
@@ -138,7 +102,6 @@ begin
   end;
 
   self.move( index, newIndex );
-  display();
 
   sortUp := newIndex;
 end;
@@ -156,8 +119,8 @@ begin
   end;
 
   self.move( index, newIndex );
-  display();
 
+  
   sortDown := newIndex;
 end;
 

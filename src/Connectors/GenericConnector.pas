@@ -2,18 +2,20 @@ unit GenericConnector;
 
 interface
 
-uses classes;
+uses classes, TerminalFrame;
 
 type TGenericConnector = class (TObject)
 
   constructor create(AOwner : TComponent );
-  destructor destroy();
+
 
   public
     procedure setup(); virtual;
     procedure toggleConnect();
     procedure connect(); virtual;
     procedure disconnect(); virtual;
+
+    procedure setTerminal( terminal : TTerminalView );
 
     function connected():boolean; virtual;
     function getName():string;
@@ -23,7 +25,7 @@ type TGenericConnector = class (TObject)
     cName : string;
     cType : string;
 
-
+    terminal : TTerminalView;
 end;
 
 implementation
@@ -34,10 +36,6 @@ begin
   cType := 'unknown type';
 end;
 
-destructor TGenericConnector.destroy;
-begin
-  //
-end;
 
 procedure TGenericConnector.setup;
 begin
@@ -62,6 +60,12 @@ procedure TGenericConnector.disconnect;
 begin
   //
 end;
+
+procedure TGenericConnector.setTerminal( terminal : TTerminalView );
+begin
+   self.terminal := terminal;
+end;
+
 
 function TGenericConnector.connected():boolean;
 begin
