@@ -26,7 +26,7 @@ type
     { Public-Deklarationen }
     tabManager: TTabManager;
 
-    profiles: TProfileView;
+    profiles: TProfileFrame;
     connectors : TConnectorView;
 
     terminal : TTerminalView;
@@ -57,19 +57,10 @@ begin
   tabManager := TTabManager.Create(pageControl1);
 
   // erzeuge tab
-  tabsheet := tabManager.createTab( 'Profiles' );
-
-  // lege die profilliste auf das tab
-  profiles := TProfileView.create( tabsheet, tabManager );
-  profiles.parent := tabsheet;
-
+  profiles := TProfileFrame( tabManager.createTab( 'Profiles', 'TProfileFrame' ));
 
   // erzeuge tab
-  tabsheet := tabManager.createTab( 'Connectors' );
-
-  // legen den connector frame drauf
-  connectors := TConnectorView.create( tabsheet );
-  connectors.Parent := tabsheet;
+  connectors := TConnectorView( tabManager.createTab( 'Connectors', 'TConnectorView' ));
 
 end;
 

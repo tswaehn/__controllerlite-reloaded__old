@@ -2,12 +2,12 @@ unit tabManager;
 
 interface
 
-uses ComCtrls, Controls;
+uses Classes, ComCtrls, Controls, Forms;
 
-type TTabManager = class (TObject)
+type TTabManager = class (TPersistent)
 
   constructor create( pageControl : TPageControl );
-  function createTab( caption : string ):TTabSheet;
+  function createTab( caption : string; classStr : string ):TFrame;
   procedure destroyTab( child : TWinControl );
 
   procedure setActiveTab( child : TWinControl );
@@ -18,16 +18,26 @@ type TTabManager = class (TObject)
 
 end;
 
+type TFrameClass = class of TFrame;
+
 implementation
+
+uses ProfileFrame, ConnectorFrame, TerminalFrame;
 
 constructor TTabManager.create(pageControl: TPageControl);
 begin
   inherited Create();
   self.pageControl := pageControl;
+
+  RegisterClass( TProfileFrame );
+  RegisterClass( TConnectorView );
+  RegisterClass( TTerminalView );
 end;
 
-function TTabManager.createTab(caption: string):TTabSheet;
+function TTabManager.createTab(caption: string; classStr : string): TFrame;
 var tabsheet : ttabsheet;
+    frame : TFrame;
+    classType : TPersistentClass;
 begin
 
   // erzeuge tab
@@ -35,7 +45,13 @@ begin
   tabsheet.PageControl := pageControl;
   tabsheet.Caption := caption;
 
-  CreateTab := tabsheet;
+  classType := findClass( classStr );
+
+  frame := TFrame( classType.Create() );
+  frame.Create( nil );
+  frame.Parent := tabsheet;
+
+  CreateTab := frame;
 end;
 
 procedure TTabManager.destroyTab(child: TWinControl);

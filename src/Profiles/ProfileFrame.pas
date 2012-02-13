@@ -7,7 +7,7 @@ uses
   Dialogs, ImgList, ComCtrls, ProfileList, profile, Menus, tabmanager;
 
 type
-  TProfileView = class(TFrame)
+  TProfileFrame = class(TFrame)
     ListView1: TListView;
     ImageList1: TImageList;
     PopupMenu1: TPopupMenu;
@@ -16,7 +16,7 @@ type
     N1: TMenuItem;
     Preferences1: TMenuItem;
 
-    constructor Create( AOwner: TComponent; tabManager : TTabManager );
+    constructor Create( AOwner : TComponent ); override;
 
     procedure display();
     procedure Start1Click(Sender: TObject);
@@ -42,7 +42,7 @@ implementation
 
 {$R *.dfm}
 
-constructor TProfileView.Create(AOwner: TComponent; tabManager : TTabManager);
+constructor TProfileFrame.Create( AOwner: TComponent );
 begin
   inherited create( AOwner );
   self.tabManager := tabManager;
@@ -54,7 +54,7 @@ begin
 end;
 
 
-procedure TProfileView.display();
+procedure TProfileFrame.display();
 var i:integer;
     profile : TProfile;
     item : TListItem;
@@ -74,7 +74,7 @@ begin
   end;
 end;
 
-procedure TProfileView.activateProfile;
+procedure TProfileFrame.activateProfile;
 var selected:integer;
     profile : TProfile;
 begin
@@ -87,7 +87,7 @@ begin
   end;
 end;
 
-procedure TProfileView.deactivateProfile;
+procedure TProfileFrame.deactivateProfile;
 var selected:integer;
     profile : TProfile;
 begin
@@ -102,7 +102,7 @@ begin
 
 end;
 
-procedure TProfileView.toggleProfile;
+procedure TProfileFrame.toggleProfile;
 var selected:integer;
     profile : TProfile;
 begin
@@ -120,17 +120,17 @@ begin
 
 end;
 
-procedure TProfileView.ListView1DblClick(Sender: TObject);
+procedure TProfileFrame.ListView1DblClick(Sender: TObject);
 begin
   toggleProfile();
 end;
 
-procedure TProfileView.Start1Click(Sender: TObject);
+procedure TProfileFrame.Start1Click(Sender: TObject);
 begin
   activateProfile();
 end;
 
-procedure TProfileView.Stop1Click(Sender: TObject);
+procedure TProfileFrame.Stop1Click(Sender: TObject);
 begin
   deactivateProfile();
 end;

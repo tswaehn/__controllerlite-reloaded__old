@@ -1,4 +1,4 @@
-object ProfileView: TProfileView
+object ProfileFrame: TProfileFrame
   Left = 0
   Top = 0
   Width = 594

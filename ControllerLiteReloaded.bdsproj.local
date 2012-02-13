@@ -21,5 +21,7 @@
     <Transaction>2012.02.11 18:36:54.989.dfm,L:\delphi\ControllerLiteReloaded\src\Connectors\ConnectionFrame.dfm=L:\delphi\ControllerLiteReloaded\src\Connectors\ConnectorFrame.dfm</Transaction>
     <Transaction>2012.02.11 22:27:24.781.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\tabManager.pas</Transaction>
     <Transaction>2012.02.12 17:23:00.984.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\Profiles\ProfileSettings.pas</Transaction>
+    <Transaction>2012.02.13 17:33:17.945.pas,L:\delphi\ControllerLiteReloaded\src\Profiles\ProfileFrame.pas=L:\delphi\ControllerLiteReloaded\src\Profiles\ProfileFrameX.pas</Transaction>
+    <Transaction>2012.02.13 17:33:17.945.dfm,L:\delphi\ControllerLiteReloaded\src\Profiles\ProfileFrame.dfm=L:\delphi\ControllerLiteReloaded\src\Profiles\ProfileFrameX.dfm</Transaction>
   </Transactions>
 </BorlandProject>

@@ -42,9 +42,6 @@ begin
 end;
 
 procedure TProfile.activate();
-var tabsheet:TTabSheet;
-    connectorClass : TGenericConnectorClass;
-    connector : TGenericConnector;
 begin
     if (self.active) then begin
       exit;
@@ -52,11 +49,7 @@ begin
 
     active := true;
 
-    tabsheet := tabmanager.createTab( name );
-
-    terminal := TTerminalView.Create( tabsheet );
-    terminal.Parent := tabsheet;
-
+    terminal := TTerminalView( tabmanager.createTab( name, 'TTerminalView' ));
 end;
 
 procedure TProfile.deactivate();
@@ -64,7 +57,7 @@ begin
   active := false;
 
   tabmanager.destroyTab( terminal );
-
+  terminal.Free();
 end;
 
 procedure TProfile.setName(name: string);

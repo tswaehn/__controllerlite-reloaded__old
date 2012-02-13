@@ -8,7 +8,7 @@ uses genericConnector, classes, cport;
 type TSerialComPort = class (TGenericConnector)
 
   constructor create(); override;
-  destructor destroy(); override;
+  destructor Destroy(); override;
 
     procedure setup(); override;
     procedure connect(); override;
