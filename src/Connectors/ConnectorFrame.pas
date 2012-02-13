@@ -7,7 +7,7 @@ uses
   Dialogs, StdCtrls, ConnectorList, ExtCtrls, GenericConnector;
 
 type
-  TConnectorView = class(TFrame)
+  TConnectorFrame = class(TFrame)
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;

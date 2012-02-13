@@ -1,10 +1,17 @@
-object ConnectorView: TConnectorView
+object ConnectorFrame: TConnectorFrame
   Left = 0
   Top = 0
-  Width = 509
-  Height = 327
-  TabOrder = 0
-  TabStop = True
+  ClientHeight = 289
+  ClientWidth = 493
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = True
+  PixelsPerInch = 96
+  TextHeight = 13
   object Button3: TButton
     Left = 399
     Top = 151
