@@ -57,14 +57,11 @@ begin
 
   tabFactory := TTabManager.Create(pageControl1);
 
-  // erzeuge tab
+  // create tab
   profiles := TProfileFrame( tabFactory.createTab( 'Profiles', 'TProfileFrame' ));
 
-  // erzeuge tab
+  // create tab
   connectors := TConnectorFrame( tabFactory.createTab( 'Connectors', 'TConnectorFrame' ));
-
-
-  testList := TTestList.create();
 
 end;
 
