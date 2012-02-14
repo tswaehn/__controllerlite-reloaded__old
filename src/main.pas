@@ -4,9 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ConnectorList, SerialComPort, CPort, Grids, ComCtrls,ConnectorFrame,
-  TerminalFrame, ProfileFrame, ProfileList, TabManager,
-  ExtCtrls, Tabs, DockTabSet, Menus;
+  Dialogs, StdCtrls, ConnectorList, SerialComPort, CPort, Grids, ComCtrls, CL_ConnectorFrame,
+  CL_TerminalFrame, CL_ProfileFrame, ProfileList, CL_TabManager,
+  ExtCtrls, Tabs, DockTabSet, Menus, CL_testList;
 
 type
   TForm1 = class(TForm )
@@ -24,12 +24,13 @@ type
 
   public
     { Public-Deklarationen }
-    tabManager: TTabManager;
 
     profiles: TProfileFrame;
-    connectors : TConnectorView;
+    connectors : TConnectorFrame;
 
-    terminal : TTerminalView;
+    terminal : TTerminalFrame;
+
+    testList : TTestList;
 
     frame : TFrame;
   end;
@@ -54,13 +55,16 @@ procedure TForm1.FormCreate(Sender: TObject);
 var tabsheet : ttabsheet;
 begin
 
-  tabManager := TTabManager.Create(pageControl1);
+  tabFactory := TTabManager.Create(pageControl1);
 
   // erzeuge tab
-  profiles := TProfileFrame( tabManager.createTab( 'Profiles', 'TProfileFrame' ));
+  profiles := TProfileFrame( tabFactory.createTab( 'Profiles', 'TProfileFrame' ));
 
   // erzeuge tab
-  connectors := TConnectorView( tabManager.createTab( 'Connectors', 'TConnectorView' ));
+  connectors := TConnectorFrame( tabFactory.createTab( 'Connectors', 'TConnectorFrame' ));
+
+
+  testList := TTestList.create();
 
 end;
 

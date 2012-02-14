@@ -2,7 +2,7 @@ unit GenericConnector;
 
 interface
 
-uses classes, TerminalFrame;
+uses classes, CL_TerminalFrame;
 
 type TGenericConnector = class (TPersistent)
 
@@ -15,7 +15,7 @@ type TGenericConnector = class (TPersistent)
     procedure connect(); virtual;
     procedure disconnect(); virtual;
 
-    procedure setTerminal( terminal : TTerminalView );
+    procedure setTerminal( terminal : TTerminalFrame );
 
     function connected():boolean; virtual;
     function getName():string;
@@ -25,7 +25,7 @@ type TGenericConnector = class (TPersistent)
     cName : string;
     cType : string;
 
-    terminal : TTerminalView;
+    terminal : TTerminalFrame;
 end;
 
 type TGenericConnectorClass = class of TGenericConnector;
@@ -65,7 +65,7 @@ begin
   //
 end;
 
-procedure TGenericConnector.setTerminal( terminal : TTerminalView );
+procedure TGenericConnector.setTerminal( terminal : TTerminalFrame );
 begin
    self.terminal := terminal;
 end;

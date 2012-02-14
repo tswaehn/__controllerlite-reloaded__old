@@ -2,25 +2,24 @@ unit ProfileList;
 
 interface
 
-uses Classes, Controls, Profile, tabmanager;
+uses Classes, Controls, Profile, CL_tabmanager;
 
 type TProfileList = class (TList)
 
-  constructor create( tabmanager : TTabManager );
+  constructor create();
   destructor destroy();
 
   procedure loadProfiles();
 
   protected
-    tabManager:TTabManager;
+
 end;
 
 implementation
 
-constructor TProfileList.create( tabmanager : TTabManager );
+constructor TProfileList.create();
 begin
   inherited Create();
-  self.tabManager := tabManager;
 end;
 
 destructor TProfileList.destroy;
@@ -39,14 +38,14 @@ end;
 procedure TProfileList.loadProfiles;
 var profile: TProfile;
 begin
-  profile := TProfile.Create( self, tabManager  );
+  profile := TProfile.Create( self );
   profile.setName( 'CAN Master' );
   profile.settings.defaultConnector := 'TSerialComPort';
   profile.settings.defaultTarget := 'COM1';
   self.Add( profile );
 
 
-  profile := TProfile.Create( self, tabmanager );
+  profile := TProfile.Create( self );
   profile.setName( 'Autofokus' );
   profile.settings.defaultConnector := 'TSerialComPort';
   profile.settings.defaultTarget := 'COM1';

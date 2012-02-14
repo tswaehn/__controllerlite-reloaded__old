@@ -1,8 +1,14 @@
-object TerminalView: TTerminalView
+object TerminalFrame: TTerminalFrame
   Left = 0
   Top = 0
   Width = 750
-  Height = 500
+  Height = 506
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  ParentFont = False
   TabOrder = 0
   TabStop = True
   object GroupBox1: TGroupBox

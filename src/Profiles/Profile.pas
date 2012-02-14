@@ -2,11 +2,11 @@ unit Profile;
 
 interface
 
-uses ComCtrls, Classes, TerminalFrame, TabManager, ProfileSettings, GenericConnector, SerialComPort;
+uses ComCtrls, Classes, CL_TerminalFrame, CL_TabManager, ProfileSettings, GenericConnector, SerialComPort;
 
 type TProfile = class ( TObject )
 
-  constructor Create( AOwner : TObject; tabmanager:TTabManager );
+  constructor Create( AOwner : TObject );
 
   procedure activate();
   procedure deactivate();
@@ -16,11 +16,11 @@ type TProfile = class ( TObject )
 
 
   public
-  terminal : TTerminalView;
-  tabManager : TTabManager;
+  terminal : TTerminalFrame;
+  connector: TGenericConnector;
 
   settings : TProfileSettings;
-  active : boolean;
+  isActive : boolean;
 
   protected
   name : string;
@@ -30,34 +30,29 @@ end;
 
 implementation
 
-constructor TProfile.Create(AOwner: TObject; tabmanager:TTabManager);
+constructor TProfile.Create(AOwner: TObject);
 begin
   name := 'unknown';
-  active := false;
-  self.tabManager := tabmanager;
+  isActive := false;
   settings := TProfileSettings.Create;
-
-
-
 end;
 
 procedure TProfile.activate();
 begin
-    if (self.active) then begin
+    if (self.isActive) then begin
       exit;
     end;
 
-    active := true;
+    isActive := true;
 
-    terminal := TTerminalView( tabmanager.createTab( name, 'TTerminalView' ));
+    terminal := TTerminalFrame( tabFactory.createTab( name, 'TTerminalFrame' ));
 end;
 
 procedure TProfile.deactivate();
 begin
-  active := false;
+  isActive := false;
 
-  tabmanager.destroyTab( terminal );
-  terminal.Free();
+  tabFactory.destroyTab( terminal );
 end;
 
 procedure TProfile.setName(name: string);

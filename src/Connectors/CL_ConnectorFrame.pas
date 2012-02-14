@@ -1,4 +1,4 @@
-unit ConnectorFrame;
+unit CL_ConnectorFrame;
 
 interface
 
@@ -20,7 +20,7 @@ type
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
 
-    constructor create( AOwner : TControl );
+    constructor create( AOwner : TComponent ); override;
 
     procedure display();
 
@@ -34,7 +34,7 @@ type
 implementation
 
 {$R *.dfm}
-constructor TConnectorView.create(AOwner: TControl);
+constructor TConnectorFrame.create(AOwner: TComponent );
 begin
   inherited Create( AOwner );
 
@@ -43,7 +43,7 @@ begin
   display();
 end;
 
-procedure TConnectorView.display;
+procedure TConnectorFrame.display;
 var i:integer;
     strId: string;
     connector:TGenericConnector;
@@ -67,7 +67,7 @@ begin
   end;
 end;
 
-procedure TConnectorView.Button4Click(Sender: TObject);
+procedure TConnectorFrame.Button4Click(Sender: TObject);
 var selected : integer;
 begin
   selected := listbox1.ItemIndex;
@@ -75,7 +75,7 @@ begin
   display();
 end;
 
-procedure TConnectorView.Button5Click(Sender: TObject);
+procedure TConnectorFrame.Button5Click(Sender: TObject);
 var selected : integer;
 begin
   selected := listbox1.ItemIndex;
@@ -84,7 +84,7 @@ begin
 end;
 
 
-procedure TConnectorView.Button6Click(Sender: TObject);
+procedure TConnectorFrame.Button6Click(Sender: TObject);
 var selected : integer;
 begin
   selected := listbox1.ItemIndex;
@@ -92,7 +92,7 @@ begin
   display();
 end;
 
-procedure TConnectorView.Button7Click(Sender: TObject);
+procedure TConnectorFrame.Button7Click(Sender: TObject);
 var selected : integer;
 begin
   selected := listbox1.ItemIndex;

@@ -1,13 +1,13 @@
-unit TerminalFrame;
+unit CL_TerminalFrame;
 
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, 
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls;
 
 type
-  TTerminalView = class(TFrame)
+  TTerminalFrame = class(TFrame)
     GroupBox1: TGroupBox;
     Button5: TButton;
     Button6: TButton;

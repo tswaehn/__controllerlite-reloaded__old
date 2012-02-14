@@ -1,10 +1,10 @@
-unit ProfileFrame;
+unit CL_ProfileFrame;
 
 interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, ComCtrls, ProfileList, profile, Menus, tabmanager;
+  Dialogs, ImgList, ComCtrls, ProfileList, profile, Menus, CL_tabmanager;
 
 type
   TProfileFrame = class(TFrame)
@@ -31,7 +31,6 @@ type
     { Private-Deklarationen }
   public
     { Public-Deklarationen }
-    tabManager : TTabManager;
 
   protected
     profileList : TProfileList;
@@ -45,9 +44,8 @@ implementation
 constructor TProfileFrame.Create( AOwner: TComponent );
 begin
   inherited create( AOwner );
-  self.tabManager := tabManager;
 
-  profileList := TProfileList.create( tabmanager );
+  profileList := TProfileList.create();
   profileList.loadProfiles();
 
   display();
@@ -66,7 +64,7 @@ begin
     listview1.AddItem( profile.getName(), profile );
     item := listview1.FindData(0, profile, true, true );
 
-    if (profile.active) then begin
+    if (profile.isActive) then begin
       item.ImageIndex := 1;
     end else begin
       item.ImageIndex := 0;
@@ -97,7 +95,7 @@ begin
     profile := TProfile( listview1.Items[selected].data );
     profile.deactivate();
     display();
-    tabmanager.setActiveTab( self );
+    tabFactory.setActiveTab( self );
   end;
 
 end;
@@ -111,7 +109,7 @@ begin
   if (selected >= 0) then begin
     profile := TProfile( listview1.Items[selected].data );
 
-    if profile.active then begin
+    if profile.isActive then begin
       deactivateProfile;
     end else begin
       activateProfile;

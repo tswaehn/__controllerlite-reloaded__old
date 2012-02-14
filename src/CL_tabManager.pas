@@ -1,4 +1,4 @@
-unit tabManager;
+unit CL_tabManager;
 
 interface
 
@@ -20,9 +20,12 @@ end;
 
 type TFrameClass = class of TFrame;
 
+var
+  tabFactory : TTabManager;
+
 implementation
 
-uses ProfileFrame, ConnectorFrame, TerminalFrame;
+uses CL_ProfileFrame, CL_ConnectorFrame, CL_TerminalFrame, CL_TestFrame;
 
 constructor TTabManager.create(pageControl: TPageControl);
 begin
@@ -30,8 +33,9 @@ begin
   self.pageControl := pageControl;
 
   RegisterClass( TProfileFrame );
-  RegisterClass( TConnectorView );
-  RegisterClass( TTerminalView );
+  RegisterClass( TConnectorFrame );
+  RegisterClass( TTerminalFrame );
+  RegisterClass( TTestFrame );
 end;
 
 function TTabManager.createTab(caption: string; classStr : string): TFrame;
@@ -58,8 +62,9 @@ procedure TTabManager.destroyTab(child: TWinControl);
 var tabsheet : TTabSheet;
 begin
   tabsheet := findTabContaining( child );
+  child.Free;
   tabsheet.Free;
-  pagecontrol.Repaint;
+//  pagecontrol.Repaint;
 end;
 
 procedure TTabManager.setActiveTab( child : TWinControl );
