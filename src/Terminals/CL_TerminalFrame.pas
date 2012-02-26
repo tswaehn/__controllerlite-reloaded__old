@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls;
+  Dialogs, StdCtrls, GenericConnector;
 
 type
   TTerminalFrame = class(TFrame)
@@ -42,14 +42,47 @@ type
     Button19: TButton;
     Button20: TButton;
     Button21: TButton;
+
+    destructor Destroy(); override;
+    procedure Button17Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private-Deklarationen }
   public
     { Public-Deklarationen }
+    connector : TGenericConnector;
   end;
 
 implementation
 
 {$R *.dfm}
+
+procedure TTerminalFrame.Button17Click(Sender: TObject);
+begin
+  connector.setup();
+end;
+
+procedure TTerminalFrame.Button1Click(Sender: TObject);
+begin
+  connector.send( ComboBox1.Text );
+end;
+
+procedure TTerminalFrame.Button2Click(Sender: TObject);
+begin
+  connector.connect();
+end;
+
+procedure TTerminalFrame.Button3Click(Sender: TObject);
+begin
+  connector.disconnect();
+end;
+
+destructor TTerminalFrame.Destroy;
+begin
+  inherited destroy();
+
+end;
 
 end.

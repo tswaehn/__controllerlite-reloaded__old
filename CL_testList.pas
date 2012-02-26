@@ -18,7 +18,7 @@ end;
 
 implementation
 
-uses CL_tabManager;
+uses CL_tabFactory;
 
 type TString = class (TObject)
 

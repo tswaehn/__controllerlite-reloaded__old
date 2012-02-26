@@ -7,13 +7,15 @@ uses genericConnector, classes, cport;
 
 type TSerialComPort = class (TGenericConnector)
 
-  constructor create(); override;
-  destructor Destroy(); override;
+  public
+    constructor Create(); override;
+    destructor Destroy(); override;
 
     procedure setup(); override;
     procedure connect(); override;
     procedure disconnect(); override;
 
+    procedure send( data : string); override;
     procedure onRecive( Sender: TObject ; const rxString: string );
 
     function connected():boolean; override;
@@ -28,7 +30,7 @@ type TSerialComPortClass = class of TSerialComPort;
 
 implementation
 
-constructor TSerialComPort.create();
+constructor TSerialComPort.create( );
 begin
   inherited create();
 
@@ -38,7 +40,6 @@ begin
   comPortDataPacket.StopString := #13+#10;
 
   comPortDataPacket.OnPacket := onRecive;
-
 
   cName := 'SerialComPort';
   cType := comPort.Port;
@@ -65,6 +66,7 @@ begin
     exit;
   end;
   comPort.Open;
+  inherited connect();
 end;
 
 procedure TSerialComPort.disconnect;
@@ -73,11 +75,20 @@ begin
     exit;
   end;
   comPort.Close;
+  inherited disconnect();
+end;
+
+procedure TSerialComPort.send(data: string);
+begin
+  if comPort.Connected then begin
+    comPort.WriteStr( data +#13+#10 );
+  end;
+
 end;
 
 procedure TSerialComPort.onRecive(Sender: TObject; const rxString: string);
 begin
-       self.terminal.Memo1.Lines.Add( rxString );
+
 end;
 
 

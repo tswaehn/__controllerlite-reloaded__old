@@ -4,10 +4,10 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, ComCtrls, ProfileList, profile, Menus, CL_tabmanager;
+  Dialogs, ImgList, ComCtrls, ProfileList, profile, Menus, CL_tabFactory;
 
 type
-  TProfileFrame = class(TFrame)
+  TProfileFactory = class(TFrame)
     ListView1: TListView;
     ImageList1: TImageList;
     PopupMenu1: TPopupMenu;
@@ -37,11 +37,14 @@ type
 
   end;
 
+var profileFactory : TProfileFactory;
+
 implementation
+
 
 {$R *.dfm}
 
-constructor TProfileFrame.Create( AOwner: TComponent );
+constructor TProfileFactory.Create( AOwner: TComponent );
 begin
   inherited create( AOwner );
 
@@ -52,7 +55,7 @@ begin
 end;
 
 
-procedure TProfileFrame.display();
+procedure TProfileFactory.display();
 var i:integer;
     profile : TProfile;
     item : TListItem;
@@ -72,7 +75,7 @@ begin
   end;
 end;
 
-procedure TProfileFrame.activateProfile;
+procedure TProfileFactory.activateProfile;
 var selected:integer;
     profile : TProfile;
 begin
@@ -85,7 +88,7 @@ begin
   end;
 end;
 
-procedure TProfileFrame.deactivateProfile;
+procedure TProfileFactory.deactivateProfile;
 var selected:integer;
     profile : TProfile;
 begin
@@ -100,7 +103,7 @@ begin
 
 end;
 
-procedure TProfileFrame.toggleProfile;
+procedure TProfileFactory.toggleProfile;
 var selected:integer;
     profile : TProfile;
 begin
@@ -118,17 +121,17 @@ begin
 
 end;
 
-procedure TProfileFrame.ListView1DblClick(Sender: TObject);
+procedure TProfileFactory.ListView1DblClick(Sender: TObject);
 begin
   toggleProfile();
 end;
 
-procedure TProfileFrame.Start1Click(Sender: TObject);
+procedure TProfileFactory.Start1Click(Sender: TObject);
 begin
   activateProfile();
 end;
 
-procedure TProfileFrame.Stop1Click(Sender: TObject);
+procedure TProfileFactory.Stop1Click(Sender: TObject);
 begin
   deactivateProfile();
 end;

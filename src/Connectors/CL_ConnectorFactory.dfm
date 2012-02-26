@@ -1,4 +1,4 @@
-object ConnectorFrame: TConnectorFrame
+object ConnectorFactory: TConnectorFactory
   Left = 0
   Top = 0
   Width = 481
@@ -70,5 +70,14 @@ object ConnectorFrame: TConnectorFrame
     Caption = 'Con/Dis'
     TabOrder = 6
     OnClick = Button7Click
+  end
+  object Button1: TButton
+    Left = 400
+    Top = 184
+    Width = 65
+    Height = 25
+    Caption = 'Refresh'
+    TabOrder = 7
+    OnClick = Button1Click
   end
 end

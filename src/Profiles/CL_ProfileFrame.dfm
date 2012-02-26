@@ -1,4 +1,4 @@
-object ProfileFrame: TProfileFrame
+object ProfileFactory: TProfileFactory
   Left = 0
   Top = 0
   Width = 594

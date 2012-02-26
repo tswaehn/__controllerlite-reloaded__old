@@ -1,9 +1,11 @@
 object Form1: TForm1
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = 'Form1'
-  ClientHeight = 562
-  ClientWidth = 784
+  ClientHeight = 572
+  ClientWidth = 794
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,7 +19,7 @@ object Form1: TForm1
   TextHeight = 13
   object PageControl1: TPageControl
     Left = 18
-    Top = 8
+    Top = 14
     Width = 750
     Height = 550
     MultiLine = True

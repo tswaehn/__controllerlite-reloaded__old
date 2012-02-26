@@ -1,4 +1,4 @@
-unit CL_tabManager;
+unit CL_tabFactory;
 
 interface
 
@@ -25,17 +25,17 @@ var
 
 implementation
 
-uses CL_ProfileFrame, CL_ConnectorFrame, CL_TerminalFrame, CL_TestFrame;
+uses CL_ProfileFrame, CL_ConnectorFactory, CL_TerminalFrame, CL_TestFrame;
 
 constructor TTabManager.create(pageControl: TPageControl);
 begin
   inherited Create();
   self.pageControl := pageControl;
 
-  RegisterClass( TProfileFrame );
-  RegisterClass( TConnectorFrame );
+  RegisterClass( TProfileFactory );
+  RegisterClass( TConnectorFactory );
   RegisterClass( TTerminalFrame );
-  RegisterClass( TTestFrame );
+
 end;
 
 function TTabManager.createTab(caption: string; classStr : string): TFrame;

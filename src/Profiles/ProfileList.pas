@@ -2,7 +2,7 @@ unit ProfileList;
 
 interface
 
-uses Classes, Controls, Profile, CL_tabmanager;
+uses Classes, Controls, Profile, CL_tabFactory;
 
 type TProfileList = class (TList)
 

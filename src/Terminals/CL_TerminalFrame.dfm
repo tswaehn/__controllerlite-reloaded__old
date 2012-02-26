@@ -180,6 +180,7 @@ object TerminalFrame: TTerminalFrame
       Height = 25
       Caption = 'Send'
       TabOrder = 2
+      OnClick = Button1Click
     end
   end
   object GroupBox4: TGroupBox
@@ -249,6 +250,7 @@ object TerminalFrame: TTerminalFrame
       Height = 25
       Caption = 'Disconnect'
       TabOrder = 0
+      OnClick = Button3Click
     end
     object Button2: TButton
       Left = 329
@@ -257,6 +259,7 @@ object TerminalFrame: TTerminalFrame
       Height = 25
       Caption = 'Connect'
       TabOrder = 1
+      OnClick = Button2Click
     end
     object Button17: TButton
       Left = 258
@@ -265,6 +268,7 @@ object TerminalFrame: TTerminalFrame
       Height = 25
       Caption = 'Setup'
       TabOrder = 2
+      OnClick = Button17Click
     end
     object ComboBox2: TComboBox
       Left = 88

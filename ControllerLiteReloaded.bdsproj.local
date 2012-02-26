@@ -42,5 +42,12 @@
     <Transaction>2012.02.14 17:56:04.645.pas,L:\delphi\ControllerLiteReloaded\CL_testFrame.pas=L:\delphi\ControllerLiteReloaded\CL_testList.pas</Transaction>
     <Transaction>2012.02.14 17:57:12.610.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\CL_testFrame.pas</Transaction>
     <Transaction>2012.02.14 17:57:12.610.dfm,L:\delphi\ControllerLiteReloaded\Unit1.dfm=L:\delphi\ControllerLiteReloaded\CL_testFrame.dfm</Transaction>
+    <Transaction>2012.02.25 20:45:25.794.pas,L:\delphi\ControllerLiteReloaded\src\CL_tabManager.pas=L:\delphi\ControllerLiteReloaded\src\CL_tabFactory.pas</Transaction>
+    <Transaction>2012.02.25 20:50:41.045.pas,L:\delphi\ControllerLiteReloaded\CL_testFrame.pas=</Transaction>
+    <Transaction>2012.02.25 20:50:41.045.dfm,L:\delphi\ControllerLiteReloaded\CL_testFrame.dfm=</Transaction>
+    <Transaction>2012.02.25 20:50:46.085.pas,L:\delphi\ControllerLiteReloaded\CL_testList.pas=</Transaction>
+    <Transaction>2012.02.25 21:23:28.928.pas,L:\delphi\ControllerLiteReloaded\src\Connectors\CL_ConnectorFrame.pas=L:\delphi\ControllerLiteReloaded\src\Connectors\CL_ConnectorFactory.pas</Transaction>
+    <Transaction>2012.02.25 21:23:28.928.dfm,L:\delphi\ControllerLiteReloaded\src\Connectors\CL_ConnectorFrame.dfm=L:\delphi\ControllerLiteReloaded\src\Connectors\CL_ConnectorFactory.dfm</Transaction>
+    <Transaction>2012.02.26 22:33:14.655.pas,L:\delphi\ControllerLiteReloaded\Unit1.pas=L:\delphi\ControllerLiteReloaded\src\Connectors\ConnectorTypes.pas</Transaction>
   </Transactions>
 </BorlandProject>

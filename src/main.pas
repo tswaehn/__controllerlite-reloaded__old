@@ -4,9 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ConnectorList, SerialComPort, CPort, Grids, ComCtrls, CL_ConnectorFrame,
-  CL_TerminalFrame, CL_ProfileFrame, ProfileList, CL_TabManager,
-  ExtCtrls, Tabs, DockTabSet, Menus, CL_testList;
+  Dialogs, StdCtrls, ConnectorList, SerialComPort, CPort, Grids, ComCtrls, CL_ConnectorFactory,
+  CL_TerminalFrame, CL_ProfileFrame, ProfileList, CL_TabFactory,
+  ExtCtrls, Tabs, DockTabSet, Menus;
 
 type
   TForm1 = class(TForm )
@@ -24,13 +24,6 @@ type
 
   public
     { Public-Deklarationen }
-
-    profiles: TProfileFrame;
-    connectors : TConnectorFrame;
-
-    terminal : TTerminalFrame;
-
-    testList : TTestList;
 
     frame : TFrame;
   end;
@@ -52,16 +45,15 @@ begin
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
-var tabsheet : ttabsheet;
 begin
 
   tabFactory := TTabManager.Create(pageControl1);
 
   // create tab
-  profiles := TProfileFrame( tabFactory.createTab( 'Profiles', 'TProfileFrame' ));
+  profileFactory := TProfileFactory( tabFactory.createTab( 'Profiles', 'TProfileFactory' ));
 
   // create tab
-  connectors := TConnectorFrame( tabFactory.createTab( 'Connectors', 'TConnectorFrame' ));
+  connectorFactory := TConnectorFactory( tabFactory.createTab( 'Connectors', 'TConnectorFactory' ));
 
 end;
 

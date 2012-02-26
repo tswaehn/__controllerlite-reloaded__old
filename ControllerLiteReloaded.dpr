@@ -10,12 +10,11 @@ uses
   Profile in 'src\Profiles\Profile.pas',
   CL_TerminalFrame in 'src\Terminals\CL_TerminalFrame.pas' {TerminalView: TFrame},
   ProfileList in 'src\Profiles\ProfileList.pas',
-  CL_tabManager in 'src\CL_tabManager.pas',
+  CL_tabFactory in 'src\CL_tabFactory.pas',
   ProfileSettings in 'src\Profiles\ProfileSettings.pas',
-  CL_ConnectorFrame in 'src\Connectors\CL_ConnectorFrame.pas' {ConnectorFrame: TFrame},
-  CL_ProfileFrame in 'src\Profiles\CL_ProfileFrame.pas' {ProfileFrame: TFrame},
-  CL_testList in 'CL_testList.pas',
-  CL_testFrame in 'CL_testFrame.pas' {TestFrame: TFrame};
+  CL_ConnectorFactory in 'src\Connectors\CL_ConnectorFactory.pas' {ConnectorFactory: TFrame},
+  CL_ProfileFrame in 'src\Profiles\CL_ProfileFrame.pas' {ProfileFactory: TFrame},
+  ConnectorTypes in 'src\Connectors\ConnectorTypes.pas';
 
 {$R *.res}
 

@@ -1,7 +1,7 @@
 unit ConnectorList;
 
 interface
-uses Classes, GenericConnector, SerialComPort, StdCtrls, SysUtils;
+uses Classes, GenericConnector, ConnectorTypes, SerialComPort, StdCtrls, SysUtils;
 
 type TConnectorList = class( TList )
 
@@ -11,6 +11,7 @@ type TConnectorList = class( TList )
   procedure loadConnectors();
 
   function createConnector( className : string ):TGenericConnector;
+  procedure removeConnector( connector : TGenericConnector );
 
 
   function edit( index : integer ):integer;
@@ -20,6 +21,13 @@ type TConnectorList = class( TList )
   function sortDown( index : integer ) : integer;
 
   private
+    procedure doRefresh();
+
+  private
+    FOnRefresh : TConnectorRefresh;
+
+  published
+    property OnRefresh : TConnectorRefresh read FOnRefresh write FOnRefresh;
 
 end;
 
@@ -29,11 +37,10 @@ implementation
 constructor TConnectorList.create();
 begin
   inherited Create;
+
+  // register diverse connectors here
   RegisterClass( TGenericConnector );
   RegisterClass( TSerialComport );
-
-  createConnector( 'TSerialComPort' );
-  createConnector( 'TSerialComPort' );
 
 end;
 
@@ -49,6 +56,14 @@ begin
   end;
 end;
 
+procedure TConnectorList.doRefresh();
+begin
+
+  if Assigned( FOnRefresh ) then begin
+    FOnRefresh();
+  end;
+
+end;
 
 function TConnectorList.createConnector( className : string ):TGenericConnector;
 var connectorClass : TPersistentClass;
@@ -58,21 +73,23 @@ begin
     connectorClass := findClass( className ) ;
     connector := TGenericConnector( connectorClass.Create());
     connector.create();
-
+    connector.onRefresh := doRefresh;
+    
     add( connector );
 
     createConnector := connector;
 end;
 
+procedure TConnectorList.removeConnector(connector: TGenericConnector);
+begin
+    connector.Free;
+    self.Remove( connector );
+end;
+
 procedure TConnectorList.loadConnectors();
-var connector : TGenericConnector;
 begin
 
 end;
-
-
-
-
 
 function TConnectorList.edit(index: Integer):integer;
 var connector:TGenericConnector;
@@ -84,6 +101,7 @@ begin
   connector := items[index];
   connector.setup();
 
+  doRefresh();
   edit:= index;
 end;
 
@@ -101,6 +119,7 @@ begin
 
   end;
 
+  doRefresh();
   toggleConnect:= index;
 end;
 
@@ -118,6 +137,7 @@ begin
 
   self.move( index, newIndex );
 
+  doRefresh();
   sortUp := newIndex;
 end;
 
@@ -135,7 +155,8 @@ begin
 
   self.move( index, newIndex );
 
-  
+  doRefresh();
+
   sortDown := newIndex;
 end;
 

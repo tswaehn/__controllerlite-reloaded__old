@@ -1,4 +1,4 @@
-unit CL_ConnectorFrame;
+unit CL_ConnectorFactory;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   Dialogs, StdCtrls, ConnectorList, ExtCtrls, GenericConnector;
 
 type
-  TConnectorFrame = class(TFrame)
+  TConnectorFactory = class(TFrame)
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
@@ -15,14 +15,19 @@ type
     ListBox1: TListBox;
     Button2: TButton;
     Button7: TButton;
+    Button1: TButton;
     procedure Button4Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
 
-    constructor create( AOwner : TComponent ); override;
+    constructor Create( AOwner : TComponent ); override;
+
+    function createConnector( classStr : string ): TGenericConnector;
+    procedure destroyConnector( connector : TGenericConnector );
 
     procedure display();
+    procedure Button1Click(Sender: TObject);
 
   private
     { Private-Deklarationen }
@@ -31,19 +36,36 @@ type
     connectorList : TConnectorList;
   end;
 
+var connectorFactory : TConnectorFactory;
+
 implementation
 
 {$R *.dfm}
-constructor TConnectorFrame.create(AOwner: TComponent );
+constructor TConnectorFactory.create(AOwner: TComponent );
 begin
   inherited Create( AOwner );
 
   connectorList := TConnectorList.create();
+  connectorList.OnRefresh := display;
 
   display();
 end;
 
-procedure TConnectorFrame.display;
+function TConnectorFactory.createConnector(classStr: string):TGenericConnector;
+var connector : TGenericConnector;
+begin
+  connector := connectorList.createConnector( classStr );
+  display();
+  result := connector;
+end;
+
+procedure TConnectorFactory.destroyConnector(connector: TGenericConnector);
+begin
+  connectorList.removeConnector( connector );
+  display();
+end;
+
+procedure TConnectorFactory.display;
 var i:integer;
     strId: string;
     connector:TGenericConnector;
@@ -63,40 +85,41 @@ begin
     end else begin
       connectStr := 'disconnected';
     end;
-    listbox1.AddItem( strId+' - ' + connector.getName()+ ' ('+connector.getType()+')'+'  --  '+'['+connectStr+']', connector );
+    listbox1.AddItem( strId+' - ' + connector.cName+ ' ('+connector.cType+' '+ connector.cUser +')'+'  --  '+'['+connectStr+']', connector );
   end;
 end;
 
-procedure TConnectorFrame.Button4Click(Sender: TObject);
+procedure TConnectorFactory.Button1Click(Sender: TObject);
+begin
+  display();
+end;
+
+procedure TConnectorFactory.Button4Click(Sender: TObject);
 var selected : integer;
 begin
   selected := listbox1.ItemIndex;
   listbox1.ItemIndex := connectorList.edit( selected );
-  display();
 end;
 
-procedure TConnectorFrame.Button5Click(Sender: TObject);
+procedure TConnectorFactory.Button5Click(Sender: TObject);
 var selected : integer;
 begin
   selected := listbox1.ItemIndex;
   listbox1.ItemIndex := connectorList.sortUp( selected );
-  display();
 end;
 
 
-procedure TConnectorFrame.Button6Click(Sender: TObject);
+procedure TConnectorFactory.Button6Click(Sender: TObject);
 var selected : integer;
 begin
   selected := listbox1.ItemIndex;
   listbox1.ItemIndex := connectorList.sortDown( selected );
-  display();
 end;
 
-procedure TConnectorFrame.Button7Click(Sender: TObject);
+procedure TConnectorFactory.Button7Click(Sender: TObject);
 var selected : integer;
 begin
   selected := listbox1.ItemIndex;
   listbox1.ItemIndex := connectorList.toggleConnect( selected );
-  display();
 end;
 end.

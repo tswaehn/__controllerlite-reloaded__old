@@ -19,7 +19,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
 
-    constructor create( AOwner : TComponent );  override;
+    constructor Create( AOwner : TComponent );  override;
 
 
 

@@ -2,7 +2,7 @@ unit Profile;
 
 interface
 
-uses ComCtrls, Classes, CL_TerminalFrame, CL_TabManager, ProfileSettings, GenericConnector, SerialComPort;
+uses ComCtrls, Classes, GenericConnector, CL_TerminalFrame, CL_TabFactory, CL_ConnectorFactory, ProfileSettings, SerialComPort;
 
 type TProfile = class ( TObject )
 
@@ -17,7 +17,6 @@ type TProfile = class ( TObject )
 
   public
   terminal : TTerminalFrame;
-  connector: TGenericConnector;
 
   settings : TProfileSettings;
   isActive : boolean;
@@ -38,6 +37,8 @@ begin
 end;
 
 procedure TProfile.activate();
+var
+    connector: TGenericConnector;
 begin
     if (self.isActive) then begin
       exit;
@@ -46,13 +47,23 @@ begin
     isActive := true;
 
     terminal := TTerminalFrame( tabFactory.createTab( name, 'TTerminalFrame' ));
+    connector := connectorFactory.createConnector( 'TSerialComPort');
+    connector.cUser := self.name;
+
+    // hand over the connector to the terminal
+    terminal.connector := connector;
 end;
 
 procedure TProfile.deactivate();
+var
+    connector: TGenericConnector;
 begin
   isActive := false;
 
+  connector := terminal.connector;
   tabFactory.destroyTab( terminal );
+  connectorFactory.destroyConnector( connector );
+
 end;
 
 procedure TProfile.setName(name: string);
