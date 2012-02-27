@@ -4,7 +4,6 @@ uses
   Forms,
   main in 'src\main.pas' {Form1},
   HelpForm in 'src\HelpForm.pas' {Help},
-  ConnectorList in 'src\Connectors\ConnectorList.pas',
   GenericConnector in 'src\Connectors\GenericConnector.pas',
   SerialComPort in 'src\Connectors\SerialComPort.pas',
   Profile in 'src\Profiles\Profile.pas',

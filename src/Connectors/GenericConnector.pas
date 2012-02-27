@@ -9,7 +9,7 @@ type TGenericConnector = class (TPersistent)
 
   public
     constructor Create(); virtual;
-    destructor Destroy(); override;
+    destructor Destroy(); virtual;
 
 
   public
@@ -19,22 +19,29 @@ type TGenericConnector = class (TPersistent)
     procedure disconnect(); virtual;
 
     function connected():boolean; virtual;
+    function connectedStr():string;
 
     procedure send( data : string ); virtual; abstract;
 
 
   protected
     myName : string;
-    myType : string;
+    myTarget : string;
     myUser : string;
-    FOnRefresh : TConnectorRefresh;
+    FOnChanged : TConnectorRefresh;
+
+    procedure doOnChanged();
+    procedure setName( newName : string );
+    procedure setTarget( newTarget : string );
+    procedure setUser( newUser: string );
+
 
   published
-    property cName : string read myName write myName;
-    property cType : string read myType write myType;
-    property cUser : string read myUser write myUser;
+    property Name : string read myName write setName;
+    property Target : string read myTarget write setTarget;
+    property User : string read myUser write setUser;
 
-    property onRefresh: TConnectorRefresh read FOnRefresh write FOnRefresh;
+    property onChanged: TConnectorRefresh read FOnChanged write FOnChanged;
 
 end;
 
@@ -46,25 +53,48 @@ implementation
     TGenericConnector
 *)
 
-constructor TGenericConnector.create( );
+constructor TGenericConnector.Create( );
 begin
   inherited create();
 
-  cName := 'unknown connector';
-  cType := 'unknown type';
+  myName := 'unknown connector';
+  myTarget := 'unknown target';
+  myUser := 'unknown user';
 
-  if Assigned(FOnRefresh)  then begin
-      FOnRefresh();
-  end;
 
 end;
 
 
-destructor TGenericConnector.destroy();
+destructor TGenericConnector.Destroy();
 begin
   self.disconnect();
 
   inherited destroy();
+end;
+
+procedure TGenericConnector.doOnChanged;
+begin
+  if Assigned(FOnChanged)  then begin
+      FOnChanged();
+  end;
+end;
+
+procedure TGenericConnector.setName(newName: string);
+begin
+  myName := newName;
+  doOnChanged;
+end;
+
+procedure TGenericConnector.setTarget(newTarget: string);
+begin
+  myTarget:= newTarget;
+  doOnChanged;
+end;
+
+procedure TGenericConnector.setUser(newUser: string);
+begin
+  myUser:= newUser;
+  doOnChanged;
 end;
 
 procedure TGenericConnector.setup;
@@ -74,7 +104,7 @@ end;
 
 procedure TGenericConnector.toggleConnect;
 begin
-  if (connected) then begin
+  if (connected = true) then begin
     disconnect();
   end else begin
     connect();
@@ -83,17 +113,12 @@ end;
 
 procedure TGenericConnector.connect;
 begin
-  if Assigned( FOnRefresh ) then begin
-    FOnRefresh();
-  end;
-
+  doOnChanged();
 end;
 
 procedure TGenericConnector.disconnect;
 begin
-  if Assigned( FOnRefresh ) then begin
-    FOnRefresh();
-  end;
+  doOnChanged();
 end;
 
 
@@ -101,6 +126,17 @@ function TGenericConnector.connected():boolean;
 begin
   connected := false;
 end;
+
+function TGenericConnector.connectedStr():string;
+begin
+  if connected then begin
+    result:= 'connected';
+  end else begin
+    result:= 'disconnected';
+  end;
+
+end;
+
 
 
 

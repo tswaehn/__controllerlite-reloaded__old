@@ -48,7 +48,7 @@ begin
 
     terminal := TTerminalFrame( tabFactory.createTab( name, 'TTerminalFrame' ));
     connector := connectorFactory.createConnector( 'TSerialComPort');
-    connector.cUser := self.name;
+    connector.User := self.name;
 
     // hand over the connector to the terminal
     terminal.connector := connector;

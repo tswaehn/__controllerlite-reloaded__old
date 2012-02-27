@@ -34,9 +34,7 @@ type
     Button3: TButton;
     Button2: TButton;
     Button17: TButton;
-    Label1: TLabel;
     ComboBox2: TComboBox;
-    ComboBox3: TComboBox;
     Label2: TLabel;
     Label3: TLabel;
     Button19: TButton;
@@ -50,6 +48,8 @@ type
     procedure Button1Click(Sender: TObject);
   private
     { Private-Deklarationen }
+    procedure update();
+
   public
     { Public-Deklarationen }
     connector : TGenericConnector;
@@ -59,9 +59,14 @@ implementation
 
 {$R *.dfm}
 
+procedure TTerminalFrame.update;
+begin
+    label3.Caption := connector.Target + ' '+ connector.connectedStr;
+end;
 procedure TTerminalFrame.Button17Click(Sender: TObject);
 begin
   connector.setup();
+  update();
 end;
 
 procedure TTerminalFrame.Button1Click(Sender: TObject);
@@ -72,11 +77,13 @@ end;
 procedure TTerminalFrame.Button2Click(Sender: TObject);
 begin
   connector.connect();
+  update();
 end;
 
 procedure TTerminalFrame.Button3Click(Sender: TObject);
 begin
   connector.disconnect();
+  update();
 end;
 
 destructor TTerminalFrame.Destroy;

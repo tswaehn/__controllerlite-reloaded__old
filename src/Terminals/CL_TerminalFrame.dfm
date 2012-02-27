@@ -222,30 +222,23 @@ object TerminalFrame: TTerminalFrame
     Height = 94
     Caption = ' Connection '
     TabOrder = 4
-    object Label1: TLabel
-      Left = 24
-      Top = 18
-      Width = 31
-      Height = 13
-      Caption = 'Label1'
-    end
     object Label2: TLabel
       Left = 24
-      Top = 37
+      Top = 27
       Width = 50
       Height = 13
       Caption = 'Connector'
     end
     object Label3: TLabel
       Left = 24
-      Top = 65
+      Top = 58
       Width = 32
       Height = 13
       Caption = 'Target'
     end
     object Button3: TButton
       Left = 329
-      Top = 60
+      Top = 53
       Width = 65
       Height = 25
       Caption = 'Disconnect'
@@ -254,7 +247,7 @@ object TerminalFrame: TTerminalFrame
     end
     object Button2: TButton
       Left = 329
-      Top = 29
+      Top = 22
       Width = 65
       Height = 25
       Caption = 'Connect'
@@ -263,7 +256,7 @@ object TerminalFrame: TTerminalFrame
     end
     object Button17: TButton
       Left = 258
-      Top = 29
+      Top = 22
       Width = 65
       Height = 25
       Caption = 'Setup'
@@ -271,22 +264,13 @@ object TerminalFrame: TTerminalFrame
       OnClick = Button17Click
     end
     object ComboBox2: TComboBox
-      Left = 88
-      Top = 37
+      Left = 96
+      Top = 24
       Width = 145
       Height = 21
       Style = csDropDownList
       ItemHeight = 13
       TabOrder = 3
-    end
-    object ComboBox3: TComboBox
-      Left = 88
-      Top = 64
-      Width = 145
-      Height = 21
-      Style = csDropDownList
-      ItemHeight = 13
-      TabOrder = 4
     end
   end
 end

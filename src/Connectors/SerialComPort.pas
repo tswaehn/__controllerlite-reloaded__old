@@ -30,9 +30,9 @@ type TSerialComPortClass = class of TSerialComPort;
 
 implementation
 
-constructor TSerialComPort.create( );
+constructor TSerialComPort.Create( );
 begin
-  inherited create();
+  inherited Create();
 
   comPort := TComPort.Create( nil );
   comPortDataPacket := TComDataPacket.Create( nil );
@@ -41,13 +41,16 @@ begin
 
   comPortDataPacket.OnPacket := onRecive;
 
-  cName := 'SerialComPort';
-  cType := comPort.Port;
+  myName := 'SerialComPort';
+  myTarget := comPort.Port;
+
+  doOnChanged();
 end;
 
-destructor TSerialComPort.destroy();
+destructor TSerialComPort.Destroy();
 begin
  comPort.Free;
+ inherited Destroy();
 end;
 
 procedure TSerialComPort.setup;
@@ -57,7 +60,10 @@ begin
   finally
 
   end;
-  cType := comPort.Port;
+
+  target := comPort.Port;
+
+  doOnChanged();
 end;
 
 procedure TSerialComPort.connect;
@@ -66,7 +72,7 @@ begin
     exit;
   end;
   comPort.Open;
-  inherited connect();
+  doOnChanged();
 end;
 
 procedure TSerialComPort.disconnect;
@@ -75,7 +81,7 @@ begin
     exit;
   end;
   comPort.Close;
-  inherited disconnect();
+  doOnChanged();
 end;
 
 procedure TSerialComPort.send(data: string);

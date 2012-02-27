@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ConnectorList, SerialComPort, CPort, Grids, ComCtrls, CL_ConnectorFactory,
+  Dialogs, StdCtrls, SerialComPort, CPort, Grids, ComCtrls, CL_ConnectorFactory,
   CL_TerminalFrame, CL_ProfileFrame, ProfileList, CL_TabFactory,
   ExtCtrls, Tabs, DockTabSet, Menus;
 
