@@ -12,10 +12,10 @@ object TerminalFrame: TTerminalFrame
   TabOrder = 0
   TabStop = True
   object GroupBox1: TGroupBox
-    Left = 434
-    Top = 321
-    Width = 273
-    Height = 159
+    Left = 466
+    Top = 340
+    Width = 271
+    Height = 157
     Caption = ' Makros '
     TabOrder = 0
     object Button5: TButton
@@ -91,7 +91,7 @@ object TerminalFrame: TTerminalFrame
       TabOrder = 8
     end
     object Button14: TButton
-      Left = 97
+      Left = 16
       Top = 117
       Width = 75
       Height = 25
@@ -99,7 +99,7 @@ object TerminalFrame: TTerminalFrame
       TabOrder = 9
     end
     object Button15: TButton
-      Left = 178
+      Left = 97
       Top = 117
       Width = 75
       Height = 25
@@ -107,7 +107,7 @@ object TerminalFrame: TTerminalFrame
       TabOrder = 10
     end
     object Button16: TButton
-      Left = 16
+      Left = 178
       Top = 117
       Width = 75
       Height = 25
@@ -116,65 +116,88 @@ object TerminalFrame: TTerminalFrame
     end
   end
   object GroupBox2: TGroupBox
-    Left = 434
+    Left = 468
     Top = 3
-    Width = 303
-    Height = 241
+    Width = 269
+    Height = 206
     Caption = ' Quick Makro '
     TabOrder = 1
-    object Memo2: TMemo
-      Left = 16
+    object quickMakroMemo: TMemo
+      Left = 11
       Top = 24
-      Width = 273
-      Height = 169
-      Lines.Strings = (
-        'Memo2')
+      Width = 246
+      Height = 137
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Courier New'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 0
     end
     object Button4: TButton
-      Left = 118
-      Top = 199
+      Left = 94
+      Top = 167
       Width = 75
       Height = 25
       Caption = 'Execute'
       TabOrder = 1
+      OnClick = Button4Click
     end
     object Button18: TButton
-      Left = 213
-      Top = 199
+      Left = 175
+      Top = 167
       Width = 75
       Height = 25
       Caption = 'Save as ...'
       TabOrder = 2
     end
+    object Button22: TButton
+      Left = 14
+      Top = 167
+      Width = 75
+      Height = 25
+      Caption = 'New Script'
+      TabOrder = 3
+      OnClick = Button22Click
+    end
   end
   object GroupBox3: TGroupBox
     Left = 15
     Top = 97
-    Width = 413
+    Width = 445
     Height = 400
     Caption = ' Terminal '
     TabOrder = 2
-    object Memo1: TMemo
+    object terminalMemo: TMemo
       Left = 19
       Top = 30
-      Width = 377
+      Width = 406
       Height = 321
-      Lines.Strings = (
-        'Memo1')
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Courier New'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 0
     end
     object ComboBox1: TComboBox
       Left = 19
       Top = 357
       Width = 289
-      Height = 21
-      ItemHeight = 13
+      Height = 22
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Courier New'
+      Font.Style = []
+      ItemHeight = 0
+      ParentFont = False
       TabOrder = 1
-      Text = 'ComboBox1'
     end
     object Button1: TButton
-      Left = 321
+      Left = 350
       Top = 357
       Width = 75
       Height = 25
@@ -184,9 +207,9 @@ object TerminalFrame: TTerminalFrame
     end
   end
   object GroupBox4: TGroupBox
-    Left = 434
-    Top = 250
-    Width = 303
+    Left = 466
+    Top = 251
+    Width = 271
     Height = 65
     Caption = ' Control '
     TabOrder = 3
@@ -207,7 +230,7 @@ object TerminalFrame: TTerminalFrame
       TabOrder = 1
     end
     object Button21: TButton
-      Left = 217
+      Left = 178
       Top = 24
       Width = 75
       Height = 25
@@ -218,7 +241,7 @@ object TerminalFrame: TTerminalFrame
   object GroupBox5: TGroupBox
     Left = 15
     Top = 3
-    Width = 413
+    Width = 447
     Height = 94
     Caption = ' Connection '
     TabOrder = 4
@@ -237,7 +260,7 @@ object TerminalFrame: TTerminalFrame
       Caption = 'Target'
     end
     object Button3: TButton
-      Left = 329
+      Left = 369
       Top = 53
       Width = 65
       Height = 25
@@ -246,7 +269,7 @@ object TerminalFrame: TTerminalFrame
       OnClick = Button3Click
     end
     object Button2: TButton
-      Left = 329
+      Left = 369
       Top = 22
       Width = 65
       Height = 25
@@ -255,7 +278,7 @@ object TerminalFrame: TTerminalFrame
       OnClick = Button2Click
     end
     object Button17: TButton
-      Left = 258
+      Left = 282
       Top = 22
       Width = 65
       Height = 25
@@ -269,7 +292,7 @@ object TerminalFrame: TTerminalFrame
       Width = 145
       Height = 21
       Style = csDropDownList
-      ItemHeight = 13
+      ItemHeight = 0
       TabOrder = 3
     end
   end

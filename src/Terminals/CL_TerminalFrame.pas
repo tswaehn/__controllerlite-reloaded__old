@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, GenericConnector;
+  Dialogs, StdCtrls, GenericConnector, ScriptEngine;
 
 type
   TTerminalFrame = class(TFrame)
@@ -18,15 +18,12 @@ type
     Button11: TButton;
     Button12: TButton;
     Button13: TButton;
-    Button14: TButton;
-    Button15: TButton;
-    Button16: TButton;
     GroupBox2: TGroupBox;
-    Memo2: TMemo;
+    quickMakroMemo: TMemo;
     Button4: TButton;
     Button18: TButton;
     GroupBox3: TGroupBox;
-    Memo1: TMemo;
+    terminalMemo: TMemo;
     ComboBox1: TComboBox;
     Button1: TButton;
     GroupBox4: TGroupBox;
@@ -40,12 +37,26 @@ type
     Button19: TButton;
     Button20: TButton;
     Button21: TButton;
+    Button14: TButton;
+    Button15: TButton;
+    Button16: TButton;
+    Button22: TButton;
 
-    destructor Destroy(); override;
     procedure Button17Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button22Click(Sender: TObject);
+
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy(); override;
+    procedure onRecived( data: string );
+    procedure addLog( msg: string );
+
+  private
+    scriptEngine : TScriptEngine;
   private
     { Private-Deklarationen }
     procedure update();
@@ -59,10 +70,36 @@ implementation
 
 {$R *.dfm}
 
+constructor TTerminalFrame.Create(AOwner: TComponent);
+begin
+  inherited Create( AOwner );
+
+  scriptEngine := TScriptEngine.Create;
+  scriptEngine.OnScriptLog := addLog;
+end;
+
+destructor TTerminalFrame.Destroy;
+begin
+  scriptEngine.free;
+
+  inherited destroy();
+end;
+
+procedure TTerminalFrame.addLog(msg: string);
+begin
+  terminalMemo.Lines.Add( msg );
+end;
+
+procedure TTerminalFrame.onRecived(data: string);
+begin
+  terminalMemo.Text := terminalMemo.Text + data;
+end;
+
 procedure TTerminalFrame.update;
 begin
     label3.Caption := connector.Target + ' '+ connector.connectedStr;
 end;
+
 procedure TTerminalFrame.Button17Click(Sender: TObject);
 begin
   connector.setup();
@@ -72,6 +109,11 @@ end;
 procedure TTerminalFrame.Button1Click(Sender: TObject);
 begin
   connector.send( ComboBox1.Text );
+end;
+
+procedure TTerminalFrame.Button22Click(Sender: TObject);
+begin
+  quickMakroMemo.Text:=scriptEngine.getNewDefaultScript();
 end;
 
 procedure TTerminalFrame.Button2Click(Sender: TObject);
@@ -86,10 +128,10 @@ begin
   update();
 end;
 
-destructor TTerminalFrame.Destroy;
-begin
-  inherited destroy();
 
+procedure TTerminalFrame.Button4Click(Sender: TObject);
+begin
+  scriptEngine.execute( quickMakroMemo.Lines );
 end;
 
 end.

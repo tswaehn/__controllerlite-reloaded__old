@@ -9,7 +9,7 @@ type TGenericConnector = class (TPersistent)
 
   public
     constructor Create(); virtual;
-    destructor Destroy(); virtual;
+    destructor Destroy; override;
 
 
   public
@@ -29,8 +29,11 @@ type TGenericConnector = class (TPersistent)
     myTarget : string;
     myUser : string;
     FOnChanged : TConnectorRefresh;
+    FOnRecived: TConnectorRecive;
 
     procedure doOnChanged();
+
+
     procedure setName( newName : string );
     procedure setTarget( newTarget : string );
     procedure setUser( newUser: string );
@@ -42,6 +45,7 @@ type TGenericConnector = class (TPersistent)
     property User : string read myUser write setUser;
 
     property onChanged: TConnectorRefresh read FOnChanged write FOnChanged;
+    property onRecived: TConnectorRecive read FOnRecived write FOnRecived;
 
 end;
 
@@ -69,7 +73,7 @@ destructor TGenericConnector.Destroy();
 begin
   self.disconnect();
 
-  inherited destroy();
+  inherited Destroy();
 end;
 
 procedure TGenericConnector.doOnChanged;

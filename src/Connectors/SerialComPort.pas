@@ -94,7 +94,9 @@ end;
 
 procedure TSerialComPort.onRecive(Sender: TObject; const rxString: string);
 begin
-
+  if Assigned( FOnRecived)  then begin
+    FOnRecived( rxString );
+  end;
 end;
 
 
