@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, SerialComPort, CPort, Grids, ComCtrls, CL_ConnectorFactory,
   CL_TerminalFrame, CL_ProfileFrame, ProfileList, CL_TabFactory,
-  ExtCtrls, Tabs, DockTabSet, Menus;
+  ExtCtrls, Tabs, DockTabSet, Menus, ImgList;
 
 type
   TForm1 = class(TForm )
@@ -14,6 +14,7 @@ type
     MainMenu1: TMainMenu;
     Exit1: TMenuItem;
     Help1: TMenuItem;
+    ImageList1: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure Exit1Click(Sender: TObject);
     procedure Help1Click(Sender: TObject);

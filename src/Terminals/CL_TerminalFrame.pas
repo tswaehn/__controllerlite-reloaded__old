@@ -48,12 +48,15 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button22Click(Sender: TObject);
+    procedure Button19Click(Sender: TObject);
+    procedure Button20Click(Sender: TObject);
 
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy(); override;
     procedure onRecived( data: string );
     procedure addLog( msg: string );
+    procedure send( msg : string );
 
   private
     scriptEngine : TScriptEngine;
@@ -76,6 +79,8 @@ begin
 
   scriptEngine := TScriptEngine.Create;
   scriptEngine.OnScriptLog := addLog;
+  scriptEngine.OnScriptSend := send;
+
 end;
 
 destructor TTerminalFrame.Destroy;
@@ -95,6 +100,11 @@ begin
   terminalMemo.Text := terminalMemo.Text + data;
 end;
 
+procedure TTerminalFrame.send(msg: string);
+begin
+  connector.send( msg );
+end;
+
 procedure TTerminalFrame.update;
 begin
     label3.Caption := connector.Target + ' '+ connector.connectedStr;
@@ -106,9 +116,19 @@ begin
   update();
 end;
 
+procedure TTerminalFrame.Button19Click(Sender: TObject);
+begin
+  scriptEngine.recived('test');
+end;
+
 procedure TTerminalFrame.Button1Click(Sender: TObject);
 begin
-  connector.send( ComboBox1.Text );
+  send( ComboBox1.Text );
+end;
+
+procedure TTerminalFrame.Button20Click(Sender: TObject);
+begin
+  scriptEngine.pauseScript;
 end;
 
 procedure TTerminalFrame.Button22Click(Sender: TObject);
@@ -131,7 +151,7 @@ end;
 
 procedure TTerminalFrame.Button4Click(Sender: TObject);
 begin
-  scriptEngine.execute( quickMakroMemo.Lines );
+  scriptEngine.runScript( quickMakroMemo.Lines );
 end;
 
 end.

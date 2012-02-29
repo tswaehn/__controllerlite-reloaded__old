@@ -127,12 +127,14 @@ object TerminalFrame: TTerminalFrame
       Top = 24
       Width = 246
       Height = 137
+      TabStop = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
       Font.Name = 'Courier New'
       Font.Style = []
       ParentFont = False
+      ScrollBars = ssVertical
       TabOrder = 0
     end
     object Button4: TButton
@@ -180,6 +182,7 @@ object TerminalFrame: TTerminalFrame
       Font.Name = 'Courier New'
       Font.Style = []
       ParentFont = False
+      ScrollBars = ssVertical
       TabOrder = 0
     end
     object ComboBox1: TComboBox
@@ -192,7 +195,7 @@ object TerminalFrame: TTerminalFrame
       Font.Height = -11
       Font.Name = 'Courier New'
       Font.Style = []
-      ItemHeight = 0
+      ItemHeight = 14
       ParentFont = False
       TabOrder = 1
     end
@@ -220,6 +223,7 @@ object TerminalFrame: TTerminalFrame
       Height = 25
       Caption = 'Stop'
       TabOrder = 0
+      OnClick = Button19Click
     end
     object Button20: TButton
       Left = 97
@@ -228,6 +232,7 @@ object TerminalFrame: TTerminalFrame
       Height = 25
       Caption = 'Pause'
       TabOrder = 1
+      OnClick = Button20Click
     end
     object Button21: TButton
       Left = 178
@@ -292,7 +297,7 @@ object TerminalFrame: TTerminalFrame
       Width = 145
       Height = 21
       Style = csDropDownList
-      ItemHeight = 0
+      ItemHeight = 13
       TabOrder = 3
     end
   end

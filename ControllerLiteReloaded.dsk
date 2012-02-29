@@ -1,25 +1,24 @@
 [Closed Files]
-File_0=TSourceModule,'L:\Delphi2006\Packages\ComPort_3_10\sources\gnugettext.pas',0,1,631,1,651,0,0,,
-File_1=TSourceModule,'L:\delphi\ControllerLiteReloaded\src\Connectors\ConnectorList.pas',0,1,6,1,33,0,0,,
-File_2=TSourceModule,'L:\delphi\ControllerLiteReloaded\src\Profiles\ProfileSettings.pas',0,1,1,27,24,0,0,,
-File_3=TSourceModule,'L:\delphi\ControllerLiteReloaded\src\CL_tabFactory.pas',0,1,46,1,68,0,0,,
-File_4=TSourceModule,'L:\delphi\ControllerLiteReloaded\src\Profiles\CL_ProfileFrame.pas',0,1,80,1,100,0,0,,
-File_5=TSourceModule,'L:\delphi\ControllerLiteReloaded\src\Profiles\ProfileList.pas',0,1,1,47,5,0,0,,
+File_0=TSourceModule,'L:\Delphi2006\Packages\Pascal Script for Delphi\Source\pascalscript.pas',0,1,1,1,1,0,0,,
+File_1=TSourceModule,'c:\program files (x86)\borland\bds\4.0\source\Win32\rtl\common\Classes.pas',0,1,1192,1,1162,0,0,,
+File_2=TSourceModule,'L:\delphi\ControllerLiteReloaded\src\Connectors\GenericConnector.pas',0,1,16,1,35,0,0,,
+File_3=TSourceModule,'L:\delphi\ControllerLiteReloaded\src\Connectors\ConnectorTypes.pas',0,1,1,1,6,0,0,,
+File_4=TSourceModule,'L:\delphi\ControllerLiteReloaded\src\Connectors\SerialComPort.pas',0,1,8,7,99,0,0,,
+File_5=TSourceModule,'L:\Delphi2006\Packages\ComPort_3_10\sources\CPort.pas',0,1,2575,3,45,0,0,,
+File_6=TSourceModule,'L:\delphi\ControllerLiteReloaded\src\Profiles\Profile.pas',0,1,24,46,52,0,0,,
+File_7=TSourceModule,'L:\delphi\ControllerLiteReloaded\src\Connectors\CL_ConnectorFactory.pas',0,1,69,15,82,0,0,,
+File_8=TSourceModule,'c:\program files (x86)\borland\bds\4.0\source\Win32\vcl\Forms.pas',0,1,213,42,239,0,0,,
 
 [Modules]
 Module0=L:\delphi\ControllerLiteReloaded\src\Terminals\ScriptEngine.pas
-Module1=L:\delphi\ControllerLiteReloaded\src\Terminals\CL_TerminalFrame.pas
-Module2=L:\delphi\ControllerLiteReloaded\src\Connectors\ConnectorTypes.pas
-Module3=L:\delphi\ControllerLiteReloaded\ControllerLiteReloaded.bdsproj
-Module4=c:\program files (x86)\borland\bds\4.0\source\Win32\vcl\Forms.pas
-Module5=L:\delphi\ControllerLiteReloaded\src\Profiles\Profile.pas
-Module6=L:\delphi\ControllerLiteReloaded\src\Connectors\GenericConnector.pas
-Module7=L:\delphi\ControllerLiteReloaded\src\Connectors\SerialComPort.pas
-Module8=c:\program files (x86)\borland\bds\4.0\source\Win32\rtl\common\Classes.pas
-Module9=L:\delphi\ControllerLiteReloaded\src\Connectors\CL_ConnectorFactory.pas
-Module10=L:\delphi\ControllerLiteReloaded\src\main.pas
-Module11=L:\Delphi2006\Packages\ComPort_3_10\sources\CPort.pas
-Count=12
+Module1=L:\delphi\ControllerLiteReloaded\src\main.pas
+Module2=L:\delphi\ControllerLiteReloaded\src\Terminals\CL_TerminalFrame.pas
+Module3=L:\delphi\ControllerLiteReloaded\src\Profiles\ProfileList.pas
+Module4=L:\delphi\ControllerLiteReloaded\src\Profiles\CL_ProfileFrame.pas
+Module5=L:\delphi\ControllerLiteReloaded\src\CL_tabFactory.pas
+Module6=L:\delphi\ControllerLiteReloaded\ControllerLiteReloaded.bdsproj
+Module7=c:\program files (x86)\borland\bds\4.0\source\Win32\rtl\sys\SysUtils.pas
+Count=8
 EditWindowCount=1
 
 [L:\delphi\ControllerLiteReloaded\src\Terminals\ScriptEngine.pas]
@@ -27,12 +26,27 @@ ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
 
+[L:\delphi\ControllerLiteReloaded\src\main.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
 [L:\delphi\ControllerLiteReloaded\src\Terminals\CL_TerminalFrame.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[L:\delphi\ControllerLiteReloaded\src\Connectors\ConnectorTypes.pas]
+[L:\delphi\ControllerLiteReloaded\src\Profiles\ProfileList.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[L:\delphi\ControllerLiteReloaded\src\Profiles\CL_ProfileFrame.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[L:\delphi\ControllerLiteReloaded\src\CL_tabFactory.pas]
 ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
@@ -40,48 +54,13 @@ FormOnTop=0
 [L:\delphi\ControllerLiteReloaded\ControllerLiteReloaded.bdsproj]
 ModuleType=TBaseProject
 
-[c:\program files (x86)\borland\bds\4.0\source\Win32\vcl\Forms.pas]
-ModuleType=TSourceModule
-FormState=0
-FormOnTop=0
-
-[L:\delphi\ControllerLiteReloaded\src\Profiles\Profile.pas]
-ModuleType=TSourceModule
-FormState=0
-FormOnTop=0
-
-[L:\delphi\ControllerLiteReloaded\src\Connectors\GenericConnector.pas]
-ModuleType=TSourceModule
-FormState=0
-FormOnTop=0
-
-[L:\delphi\ControllerLiteReloaded\src\Connectors\SerialComPort.pas]
-ModuleType=TSourceModule
-FormState=0
-FormOnTop=0
-
-[c:\program files (x86)\borland\bds\4.0\source\Win32\rtl\common\Classes.pas]
-ModuleType=TSourceModule
-FormState=0
-FormOnTop=0
-
-[L:\delphi\ControllerLiteReloaded\src\Connectors\CL_ConnectorFactory.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
-[L:\delphi\ControllerLiteReloaded\src\main.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
-[L:\Delphi2006\Packages\ComPort_3_10\sources\CPort.pas]
+[c:\program files (x86)\borland\bds\4.0\source\Win32\rtl\sys\SysUtils.pas]
 ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
 
 [EditWindow0]
-ViewCount=12
+ViewCount=8
 CurrentEditView=L:\delphi\ControllerLiteReloaded\src\Terminals\ScriptEngine.pas
 View0=0
 View1=1
@@ -91,10 +70,6 @@ View4=4
 View5=5
 View6=6
 View7=7
-View8=8
-View9=9
-View10=10
-View11=11
 PercentageSizes=1
 Create=1
 Visible=1
@@ -120,142 +95,98 @@ RightPanelClients=ToolForm,DockSite4
 RightPanelData=000008000101000000004F1300000000000001D40800000000000001000000006611000009000000446F636B536974653401000000005322000008000000546F6F6C466F726DFFFFFFFF
 BottomPanelSize=0
 BottomPanelClients=ToDo List,DockSite7,DockSite1,DockSite3
-BottomPanelData=000008000102040000000E000000546F446F4C69737457696E646F7709000000446F636B536974653709000000446F636B536974653109000000446F636B5369746533CB440000000000000211080000000000000100000000CB44000009000000446F636B5369746537FFFFFFFF
+BottomPanelData=000008000102040000000E000000546F446F4C69737457696E646F7709000000446F636B536974653709000000446F636B536974653109000000446F636B5369746533CB44000000000000028F07000000000000FFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,DockSite2
 BottomMiddelPanelData=0000080001000200000009000000446F636B536974653009000000446F636B53697465320000000000000000000000000000000000FFFFFFFF
 
 [View0]
 CustomEditViewType=TEditView
-Module=L:\delphi\ControllerLiteReloaded\src\main.pas
-CursorX=22
-CursorY=7
-TopLine=1
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=L:\delphi\ControllerLiteReloaded\src\main.pas
-
-[View1]
-CustomEditViewType=TEditView
-Module=L:\delphi\ControllerLiteReloaded\src\Connectors\GenericConnector.pas
-CursorX=1
-CursorY=35
-TopLine=16
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=L:\delphi\ControllerLiteReloaded\src\Connectors\GenericConnector.pas
-
-[View2]
-CustomEditViewType=TEditView
-Module=c:\program files (x86)\borland\bds\4.0\source\Win32\rtl\common\Classes.pas
-CursorX=1
-CursorY=320
-TopLine=301
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=c:\program files (x86)\borland\bds\4.0\source\Win32\rtl\common\Classes.pas
-
-[View3]
-CustomEditViewType=TEditView
-Module=L:\delphi\ControllerLiteReloaded\src\Terminals\CL_TerminalFrame.pas
-CursorX=1
-CursorY=94
-TopLine=57
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=L:\delphi\ControllerLiteReloaded\src\Terminals\CL_TerminalFrame.pas
-
-[View4]
-CustomEditViewType=TEditView
-Module=c:\program files (x86)\borland\bds\4.0\source\Win32\vcl\Forms.pas
-CursorX=42
-CursorY=239
-TopLine=213
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=c:\program files (x86)\borland\bds\4.0\source\Win32\vcl\Forms.pas
-
-[View5]
-CustomEditViewType=TEditView
 Module=L:\delphi\ControllerLiteReloaded\src\Terminals\ScriptEngine.pas
-CursorX=24
-CursorY=57
-TopLine=49
+CursorX=1
+CursorY=131
+TopLine=108
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=L:\delphi\ControllerLiteReloaded\src\Terminals\ScriptEngine.pas
 
-[View6]
+[View1]
 CustomEditViewType=TEditView
-Module=L:\delphi\ControllerLiteReloaded\src\Connectors\ConnectorTypes.pas
+Module=L:\delphi\ControllerLiteReloaded\src\Profiles\CL_ProfileFrame.pas
 CursorX=1
-CursorY=6
+CursorY=55
+TopLine=52
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=L:\delphi\ControllerLiteReloaded\src\Profiles\CL_ProfileFrame.pas
+
+[View2]
+CustomEditViewType=TEditView
+Module=L:\delphi\ControllerLiteReloaded\src\Profiles\ProfileList.pas
+CursorX=1
+CursorY=1
 TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=L:\delphi\ControllerLiteReloaded\src\Connectors\ConnectorTypes.pas
+EditViewName=L:\delphi\ControllerLiteReloaded\src\Profiles\ProfileList.pas
 
-[View7]
+[View3]
 CustomEditViewType=TEditView
-Module=L:\delphi\ControllerLiteReloaded\src\Connectors\SerialComPort.pas
-CursorX=7
-CursorY=99
-TopLine=8
+Module=L:\delphi\ControllerLiteReloaded\src\main.pas
+CursorX=1
+CursorY=64
+TopLine=49
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=L:\delphi\ControllerLiteReloaded\src\Connectors\SerialComPort.pas
+EditViewName=L:\delphi\ControllerLiteReloaded\src\main.pas
 
-[View8]
+[View4]
 CustomEditViewType=TEditView
-Module=L:\Delphi2006\Packages\ComPort_3_10\sources\CPort.pas
-CursorX=3
-CursorY=45
-TopLine=2575
+Module=L:\delphi\ControllerLiteReloaded\src\CL_tabFactory.pas
+CursorX=29
+CursorY=51
+TopLine=17
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=L:\Delphi2006\Packages\ComPort_3_10\sources\CPort.pas
+EditViewName=L:\delphi\ControllerLiteReloaded\src\CL_tabFactory.pas
 
-[View9]
+[View5]
 CustomEditViewType=TEditView
 Module=L:\delphi\ControllerLiteReloaded\ControllerLiteReloaded.dpr
-CursorX=61
-CursorY=7
+CursorX=1
+CursorY=1
 TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=L:\delphi\ControllerLiteReloaded\ControllerLiteReloaded.dpr
 
-[View10]
+[View6]
 CustomEditViewType=TEditView
-Module=L:\delphi\ControllerLiteReloaded\src\Profiles\Profile.pas
-CursorX=46
-CursorY=52
-TopLine=24
+Module=L:\delphi\ControllerLiteReloaded\src\Terminals\CL_TerminalFrame.pas
+CursorX=1
+CursorY=122
+TopLine=119
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=L:\delphi\ControllerLiteReloaded\src\Profiles\Profile.pas
+EditViewName=L:\delphi\ControllerLiteReloaded\src\Terminals\CL_TerminalFrame.pas
 
-[View11]
+[View7]
 CustomEditViewType=TEditView
-Module=L:\delphi\ControllerLiteReloaded\src\Connectors\CL_ConnectorFactory.pas
-CursorX=15
-CursorY=82
-TopLine=69
+Module=c:\program files (x86)\borland\bds\4.0\source\Win32\rtl\sys\SysUtils.pas
+CursorX=1
+CursorY=16060
+TopLine=16041
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=L:\delphi\ControllerLiteReloaded\src\Connectors\CL_ConnectorFactory.pas
+EditViewName=c:\program files (x86)\borland\bds\4.0\source\Win32\rtl\sys\SysUtils.pas
 
 [Watches]
 Count=0
@@ -494,8 +425,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-126
-Top=5304
+Left=-190
+Top=8400
 Width=276
 Height=365
 MaxLeft=-1
@@ -535,8 +466,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1015
-Top=-2217
+Left=-1579
+Top=-2273
 Width=3562
 Height=4827
 MaxLeft=-1
@@ -554,8 +485,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1015
-Top=-2217
+Left=-1579
+Top=-2273
 Width=13604
 Height=202
 MaxLeft=-1
@@ -573,8 +504,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-5679
-Top=-7864
+Left=-8703
+Top=-11933
 Width=3562
 Height=4827
 MaxLeft=-1
@@ -592,8 +523,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-5679
-Top=-7864
+Left=-8703
+Top=-11933
 Width=3562
 Height=2308
 MaxLeft=-1
@@ -695,13 +626,13 @@ Visible=0
 Docked=1
 State=0
 Left=0
-Top=0
-Width=9865
-Height=1827
+Top=-23
+Width=4328
+Height=2231
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=9865
-ClientHeight=1827
+ClientWidth=4328
+ClientHeight=2231
 TBDockHeight=2231
 LRDockWidth=4328
 Dockable=1
@@ -737,7 +668,7 @@ Visible=0
 Docked=1
 State=0
 Left=-379
-Top=-806
+Top=-1032
 Width=3510
 Height=2231
 MaxLeft=-1
@@ -759,7 +690,7 @@ Visible=0
 Docked=1
 State=0
 Left=-10
-Top=-809
+Top=-1032
 Width=3510
 Height=1923
 MaxLeft=-1
@@ -781,7 +712,7 @@ Visible=0
 Docked=1
 State=0
 Left=-379
-Top=-806
+Top=-1032
 Width=2339
 Height=2317
 MaxLeft=-1
@@ -804,7 +735,7 @@ Visible=0
 Docked=1
 State=0
 Left=-10
-Top=-809
+Top=-1032
 Width=3828
 Height=5048
 MaxLeft=-1
@@ -897,13 +828,13 @@ Docked=1
 State=0
 Left=0
 Top=23
-Width=9906
-Height=1923
+Width=3510
+Height=1788
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=9906
-ClientHeight=1923
-TBDockHeight=1923
+ClientWidth=3510
+ClientHeight=1788
+TBDockHeight=1788
 LRDockWidth=3510
 Dockable=1
 StayOnTop=0

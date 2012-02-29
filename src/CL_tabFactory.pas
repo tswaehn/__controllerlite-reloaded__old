@@ -48,6 +48,7 @@ begin
   tabsheet := TTabsheet.Create( pagecontrol );
   tabsheet.PageControl := pageControl;
   tabsheet.Caption := caption;
+  tabsheet.ImageIndex := -1;
 
   classType := findClass( classStr );
 
