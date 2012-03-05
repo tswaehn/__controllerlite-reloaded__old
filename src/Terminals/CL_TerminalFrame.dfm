@@ -159,7 +159,7 @@ object TerminalFrame: TTerminalFrame
       Top = 167
       Width = 75
       Height = 25
-      Caption = 'New Script'
+      Caption = 'Demo Script'
       TabOrder = 3
       OnClick = Button22Click
     end
@@ -216,23 +216,25 @@ object TerminalFrame: TTerminalFrame
     Height = 65
     Caption = ' Control '
     TabOrder = 3
-    object Button19: TButton
+    object StopButton: TButton
       Left = 16
       Top = 24
       Width = 75
       Height = 25
       Caption = 'Stop'
+      Enabled = False
       TabOrder = 0
-      OnClick = Button19Click
+      OnClick = StopButtonClick
     end
-    object Button20: TButton
+    object PauseButton: TButton
       Left = 97
       Top = 24
       Width = 75
       Height = 25
       Caption = 'Pause'
+      Enabled = False
       TabOrder = 1
-      OnClick = Button20Click
+      OnClick = PauseButtonClick
     end
     object Button21: TButton
       Left = 178
@@ -241,6 +243,7 @@ object TerminalFrame: TTerminalFrame
       Height = 25
       Caption = 'Toolbox'
       TabOrder = 2
+      OnClick = Button21Click
     end
   end
   object GroupBox5: TGroupBox

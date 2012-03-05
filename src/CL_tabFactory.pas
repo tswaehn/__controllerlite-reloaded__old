@@ -6,7 +6,9 @@ uses Classes, ComCtrls, Controls, Forms;
 
 type TTabManager = class (TPersistent)
 
-  constructor create( pageControl : TPageControl );
+  constructor Create( pageControl : TPageControl );
+  destructor Destroy();override;
+
   function createTab( caption : string; classStr : string ):TFrame;
   procedure destroyTab( child : TWinControl );
 
@@ -25,9 +27,9 @@ var
 
 implementation
 
-uses CL_ProfileFrame, CL_ConnectorFactory, CL_TerminalFrame, CL_TestFrame;
+uses CL_ProfileFrame, CL_ConnectorFactory, CL_TerminalFrame, CL_ToolboxFrame;
 
-constructor TTabManager.create(pageControl: TPageControl);
+constructor TTabManager.Create(pageControl: TPageControl);
 begin
   inherited Create();
   self.pageControl := pageControl;
@@ -35,7 +37,12 @@ begin
   RegisterClass( TProfileFactory );
   RegisterClass( TConnectorFactory );
   RegisterClass( TTerminalFrame );
+  RegisterClass( TToolboxFrame );
 
+end;
+
+destructor TTabManager.Destroy;
+begin
 end;
 
 function TTabManager.createTab(caption: string; classStr : string): TFrame;
@@ -56,6 +63,8 @@ begin
   frame.Create( nil );
   frame.Parent := tabsheet;
 
+  setActiveTab( frame );
+
   CreateTab := frame;
 end;
 
@@ -65,7 +74,6 @@ begin
   tabsheet := findTabContaining( child );
   child.Free;
   tabsheet.Free;
-//  pagecontrol.Repaint;
 end;
 
 procedure TTabManager.setActiveTab( child : TWinControl );

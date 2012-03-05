@@ -14,7 +14,8 @@ uses
   CL_ConnectorFactory in 'src\Connectors\CL_ConnectorFactory.pas' {ConnectorFactory: TFrame},
   CL_ProfileFrame in 'src\Profiles\CL_ProfileFrame.pas' {ProfileFactory: TFrame},
   ConnectorTypes in 'src\Connectors\ConnectorTypes.pas',
-  ScriptEngine in 'src\Terminals\ScriptEngine.pas';
+  ScriptEngine in 'src\Terminals\ScriptEngine.pas',
+  CL_ToolboxFrame in 'src\Terminals\CL_ToolboxFrame.pas' {ToolboxFrame: TFrame};
 
 {$R *.res}
 

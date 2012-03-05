@@ -17,6 +17,7 @@ type
     Preferences1: TMenuItem;
 
     constructor Create( AOwner : TComponent ); override;
+    destructor Destroy(); override;
 
     procedure display();
     procedure Start1Click(Sender: TObject);
@@ -54,6 +55,11 @@ begin
   display();
 end;
 
+destructor TProfileFactory.Destroy;
+begin
+  profileList.Free;
+  inherited Destroy();
+end;
 
 procedure TProfileFactory.display();
 var i:integer;

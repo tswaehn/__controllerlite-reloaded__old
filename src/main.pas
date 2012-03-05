@@ -18,6 +18,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure Exit1Click(Sender: TObject);
     procedure Help1Click(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
 
   private
     { Private-Deklarationen }
@@ -56,6 +57,14 @@ begin
   // create tab
   connectorFactory := TConnectorFactory( tabFactory.createTab( 'Connectors', 'TConnectorFactory' ));
 
+  tabFactory.setActiveTab( profileFactory );
+end;
+
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  tabFactory.destroyTab(profileFactory);
+  tabFactory.destroyTab(connectorFactory);
+  tabFactory.Free;
 end;
 
 procedure TForm1.Help1Click(Sender: TObject);

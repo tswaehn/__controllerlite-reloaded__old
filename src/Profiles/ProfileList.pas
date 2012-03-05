@@ -6,9 +6,9 @@ uses Classes, Controls, Profile, CL_tabFactory;
 
 type TProfileList = class (TList)
 
-  constructor create();
-  destructor destroy();
+  constructor Create();
 
+  procedure Clear(); override;
   procedure loadProfiles();
 
   protected
@@ -22,7 +22,8 @@ begin
   inherited Create();
 end;
 
-destructor TProfileList.destroy;
+
+procedure TProfileList.Clear;
 var profile : TProfile;
 begin
   while self.Count > 0 do begin

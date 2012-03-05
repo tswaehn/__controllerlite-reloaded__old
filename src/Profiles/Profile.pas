@@ -7,6 +7,7 @@ uses ComCtrls, Classes, GenericConnector, CL_TerminalFrame, CL_TabFactory, CL_Co
 type TProfile = class ( TObject )
 
   constructor Create( AOwner : TObject );
+  destructor Destroy(); override;
 
   procedure activate();
   procedure deactivate();
@@ -22,7 +23,6 @@ type TProfile = class ( TObject )
   isActive : boolean;
 
   protected
-  name : string;
 
 end;
 
@@ -31,50 +31,57 @@ implementation
 
 constructor TProfile.Create(AOwner: TObject);
 begin
-  name := 'unknown';
   isActive := false;
   settings := TProfileSettings.Create;
+end;
+
+destructor TProfile.Destroy;
+begin
+  deactivate;
+  settings.Free;
 end;
 
 procedure TProfile.activate();
 var
     connector: TGenericConnector;
 begin
-    if (self.isActive) then begin
+    if (isActive) then begin
       exit;
     end;
 
     isActive := true;
 
-    terminal := TTerminalFrame( tabFactory.createTab( name, 'TTerminalFrame' ));
+    terminal := TTerminalFrame( tabFactory.createTab( getName(), 'TTerminalFrame' ));
     connector := connectorFactory.createConnector( 'TSerialComPort');
-    connector.User := self.name;
+    connector.User := getName();
     connector.onRecived := terminal.onRecived;
 
     // hand over the connector to the terminal
     terminal.connector := connector;
+    terminal.profileSettings := settings;
 end;
 
 procedure TProfile.deactivate();
 var
     connector: TGenericConnector;
 begin
+  if (isActive=false) then exit;
+  
   isActive := false;
 
   connector := terminal.connector;
   tabFactory.destroyTab( terminal );
   connectorFactory.destroyConnector( connector );
-
 end;
 
 procedure TProfile.setName(name: string);
 begin
-  self.name:= name;
+  settings.name:=name;
 end;
 
 function TProfile.getName():string;
 begin
-  getName := name;
+  getName := settings.name;
 end;
 
 
