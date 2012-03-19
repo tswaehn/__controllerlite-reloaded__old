@@ -577,5 +577,9 @@ object ProfileFactory: TProfileFactory
     object Preferences1: TMenuItem
       Caption = 'Preferences'
     end
+    object Save1: TMenuItem
+      Caption = 'Save'
+      OnClick = Save1Click
+    end
   end
 end

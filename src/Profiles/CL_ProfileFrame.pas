@@ -15,6 +15,7 @@ type
     Stop1: TMenuItem;
     N1: TMenuItem;
     Preferences1: TMenuItem;
+    Save1: TMenuItem;
 
     constructor Create( AOwner : TComponent ); override;
     destructor Destroy(); override;
@@ -27,6 +28,7 @@ type
     procedure activateProfile();
     procedure deactivateProfile();
     procedure toggleProfile();
+    procedure Save1Click(Sender: TObject);
 
   private
     { Private-Deklarationen }
@@ -130,6 +132,19 @@ end;
 procedure TProfileFactory.ListView1DblClick(Sender: TObject);
 begin
   toggleProfile();
+end;
+
+procedure TProfileFactory.Save1Click(Sender: TObject);
+var selected:integer;
+    profile : TProfile;
+begin
+  selected := listview1.ItemIndex;
+
+    if (selected >= 0) then begin
+      profile := TProfile( listview1.Items[selected].data );
+      profile.settings.storeToFile;
+    end;
+
 end;
 
 procedure TProfileFactory.Start1Click(Sender: TObject);

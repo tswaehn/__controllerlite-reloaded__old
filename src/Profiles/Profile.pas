@@ -12,6 +12,9 @@ type TProfile = class ( TObject )
   procedure activate();
   procedure deactivate();
 
+  procedure setBasePath( path : string );
+  procedure loadFromFile();
+
   procedure setName( name : string );
   function getName():string;
 
@@ -39,6 +42,16 @@ destructor TProfile.Destroy;
 begin
   deactivate;
   settings.Free;
+end;
+
+procedure TProfile.setBasePath(path: string);
+begin
+  settings.basepath:= path;
+end;
+
+procedure TProfile.loadFromFile;
+begin
+  settings.loadFromFile;
 end;
 
 procedure TProfile.activate();

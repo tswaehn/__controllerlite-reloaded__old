@@ -2,7 +2,7 @@ unit ProfileList;
 
 interface
 
-uses Classes, Controls, Profile, CL_tabFactory;
+uses Classes, Controls, SysUtils, Dialogs, Profile, CL_tabFactory;
 
 type TProfileList = class (TList)
 
@@ -10,6 +10,13 @@ type TProfileList = class (TList)
 
   procedure Clear(); override;
   procedure loadProfiles();
+
+  private
+    procedure createDirectoryList();
+
+  private
+    basepath:string;
+    directoryList : TStringList;
 
   protected
 
@@ -20,6 +27,9 @@ implementation
 constructor TProfileList.create();
 begin
   inherited Create();
+  basepath := '.\profiles\';
+  directoryList:=TStringList.Create();
+
 end;
 
 
@@ -33,12 +43,52 @@ begin
   end;
 end;
 
+procedure TProfileList.createDirectoryList();
+var ret:integer;
+    search : TSearchRec;
+begin
+
+  directoryList.Clear;
+
+  ret := findFirst( basepath + '*', faDirectory, search );
+  while (ret = 0) do begin
+    if ((search.Name <> '.') and (search.Name <> '..')) then begin
+      directoryList.Append( search.Name );
+    end;
+
+    ret := findNext( search );
+
+  end;
+  findClose( search );
+
+end;
 (*
     hier wird normalerweise aus der datei geladen
 *)
 procedure TProfileList.loadProfiles;
 var profile: TProfile;
+  i: Integer;
+  name:string;
+  path:string;
 begin
+
+  createDirectoryList();
+
+  for i := 0 to directoryList.Count - 1 do begin
+    name := directoryList.Strings[i];
+    path:= basepath + name + '\';
+
+    profile := TProfile.Create( self );
+    profile.setBasePath( path );
+    profile.loadFromFile();
+
+//    aus dem profil lesen !!
+//    profile.settings.defaultConnector := 'TSerialComPort';
+//    profile.settings.defaultTarget := 'COM1';
+    self.Add( profile );
+
+  end;
+(*
   profile := TProfile.Create( self );
   profile.setName( 'CAN Master' );
   profile.settings.defaultConnector := 'TSerialComPort';
@@ -51,6 +101,7 @@ begin
   profile.settings.defaultConnector := 'TSerialComPort';
   profile.settings.defaultTarget := 'COM1';
   self.Add( profile );
+ *)
 
 end;
 

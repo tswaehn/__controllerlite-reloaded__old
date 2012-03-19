@@ -15,7 +15,8 @@ uses
   CL_ProfileFrame in 'src\Profiles\CL_ProfileFrame.pas' {ProfileFactory: TFrame},
   ConnectorTypes in 'src\Connectors\ConnectorTypes.pas',
   ScriptEngine in 'src\Terminals\ScriptEngine.pas',
-  CL_ToolboxFrame in 'src\Terminals\CL_ToolboxFrame.pas' {ToolboxFrame: TFrame};
+  CL_ToolboxFrame in 'src\Terminals\CL_ToolboxFrame.pas' {ToolboxFrame: TFrame},
+  superobject in 'src\JSON\superobject.pas';
 
 {$R *.res}
 
