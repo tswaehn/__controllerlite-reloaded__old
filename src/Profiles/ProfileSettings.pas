@@ -305,6 +305,9 @@ end;
 
 procedure TProfileSettings.loadFromFile;
 var filename:string;
+  obj : ISuperObject;
+  text: PWideChar;
+  typex : TSuperType;
 begin
   filename:= getFileName();
 
@@ -312,19 +315,15 @@ begin
     createSettingsFile();
   end;
 
-  json := TSuperObject.ParseFile( filename, true );
+  text := '{ "profile" : {	"name" : "autofokus" }, "foo": true, "defaultConnector": "TSerialConnector","test": true,"name": "mynamäe"}';
+  json := TSuperObject.ParseString( text, true );
 
   // start interpreting
+  self.name :=json['profile.name'].AsString;
   try
-    self.name:= json[JSON_NAME].AsString;
+  self.defaultConnector := json['defaultConnector'].AsString;
   except
-    self.name := 'failed to read';
-  end;
-
-  try
-    self.defaultConnector := json[JSON_DEFAULT_CONNECTOR].AsString;
-  except
-    self.defaultConnector := '';
+    self.defaultConnector := 'TSerialConnector';
   end;
 
   //storeTofile();
