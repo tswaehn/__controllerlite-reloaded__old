@@ -2,7 +2,14 @@ unit ProfileSettings;
 
 interface
 
-uses Classes, SysUtils, SuperObject;
+uses Classes, SysUtils, JsonWrapper;
+
+
+const
+
+  JSON_VERSION = 'version';
+  JSON_NAME = 'name';
+  JSON_DEFAULT_CONNECTOR = 'defaultConnector';
 
 // ------------------ TScript -----------------------
 
@@ -82,9 +89,9 @@ type TProfileSettings = class (TObject)
    parameterGroup : TParameterGroup;
 
   private
+    json : TJsonWrapper;
 
     filename : string;
-    json : ISuperObject;
 
   private
     function getFileName():string;
@@ -96,11 +103,6 @@ end;
 
 implementation
 
-
-const
-
-  JSON_NAME = 'name';
-  JSON_DEFAULT_CONNECTOR = 'defaultConnector';
 
 (*
   TScript
@@ -242,11 +244,15 @@ begin
   basepath := '';
   filename := 'settings.json.txt';
 
+  json := TJsonWrapper.Create();
+  
 end;
 
 destructor TProfileSettings.Destroy;
 begin
-  parameterGroup.Destroy;
+  parameterGroup.Free;
+  json.Free;
+  
   inherited Destroy();
 end;
 
@@ -259,9 +265,6 @@ end;
 
 procedure TProfileSettings.createSettingsFile();
 begin
-  json := TSuperObject.Create();
-  json.S[JSON_NAME] := 'unknown';
-  json.S[JSON_DEFAULT_CONNECTOR] := 'TSerialConnector';
 
 
   storeToFile();
@@ -269,82 +272,35 @@ begin
 end;
 
 procedure TProfileSettings.processJSONSettings;
- //procedure ProcessNode(parent: PVirtualNode; const node: ISuperObject; const text: string; id: Integer = -1);
-  var
-    //p: PVirtualNode;
-    //data: PSuperNode;
-    i: Integer;
-    iter: TSuperObjectIter;
-  begin
-(*
-    p := treeview.AddChild(parent);
-    data := treeview.GetNodeData(p);
-    data.name := text;
-    data.obj := node;
-    data.index := id;
-    include(p.States, vsInitialized);
-    case ObjectGetType(node) of
-      stObject:
-        begin
-          include(p.States, vsExpanded);
-          if ObjectFindFirst(node, iter) then
-          repeat
-            ProcessNode(p, iter.val, iter.key, -1);
-          until not ObjectFindNext(iter);
-          ObjectFindClose(iter);
-        end;
-      stArray:
-        begin
-          include(p.States, vsExpanded);
-          for i := 0 to node.AsArray.Length - 1 do
-            ProcessNode(p, node.AsArray[i], inttostr(i), i);
-        end;
-    end;
-    *)
+begin
+
 end;
 
 procedure TProfileSettings.loadFromFile;
 var filename:string;
-  obj : ISuperObject;
-  text: PWideChar;
-  typex : TSuperType;
 begin
   filename:= getFileName();
 
-  if fileexists(filename)=false then begin
-    createSettingsFile();
+  if json.loadFile(filename)=false then begin
+//    createSettingsFile();
   end;
-
-  text := '{ "profile" : {	"name" : "autofokus" }, "foo": true, "defaultConnector": "TSerialConnector","test": true,"name": "mynamäe"}';
-  json := TSuperObject.ParseString( text, true );
 
   // start interpreting
-  self.name :=json['profile.name'].AsString;
-  try
-  self.defaultConnector := json['defaultConnector'].AsString;
-  except
-    self.defaultConnector := 'TSerialConnector';
-  end;
+  json.getStrValue(JSON_VERSION, '1.0');
+  self.name := json.getStrValue(JSON_NAME,'none');
+  self.defaultConnector := json.getStrValue(JSON_DEFAULT_CONNECTOR, 'TSerialConnector');
 
-  //storeTofile();
+  storeTofile();
 end;
 
 procedure TProfileSettings.storeToFile;
-var temp:string;
-    path:string;
-    doIndent:boolean;
-    doEscape:boolean;
+var filename:string;
 begin
-  temp:= getFileName();
-  path:= extractFileDir( temp );
+  filename:= getFileName();
 
-  if (directoryexists(path) = false) then begin
-    forceDirectories(path);
-  end;
+  json.storeFile( filename );
 
-  doIndent := true;
-  doEscape := false;
-  json.SaveTo( temp, doIndent, doEscape );
+
 end;
 
 

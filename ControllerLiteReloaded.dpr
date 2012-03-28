@@ -16,7 +16,8 @@ uses
   ConnectorTypes in 'src\Connectors\ConnectorTypes.pas',
   ScriptEngine in 'src\Terminals\ScriptEngine.pas',
   CL_ToolboxFrame in 'src\Terminals\CL_ToolboxFrame.pas' {ToolboxFrame: TFrame},
-  superobject in 'src\JSON\superobject.pas';
+  superobject in 'src\JSON\superobject.pas',
+  JsonWrapper in 'src\JSON\JsonWrapper.pas';
 
 {$R *.res}
 
