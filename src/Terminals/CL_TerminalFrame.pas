@@ -61,7 +61,9 @@ type
     procedure addTx( msg: string );
 
     procedure send( msg : string );
+    procedure doClientUpdate();
 
+    procedure setupMakros();
 
   public
     { Public-Deklarationen }
@@ -69,16 +71,17 @@ type
 
 
   private
+    makroButtons : array[0..11] of TButton;
+
     scriptEngine : TScriptEngine;
     timeStampsEnabled : boolean;
     startTime : TDateTime;
     toolbox: TToolboxFrame;
-    mProfileSettings : TProfileSettings;
+    mProfileSettings : TSettings;
 
   private
     { Private-Deklarationen }
     procedure openCloseToolbox;
-    procedure update();
     function getStartTime(): string;
     function getDeltaTime(): string;
     function convertTime( convTime : TDateTime ): string;
@@ -88,8 +91,10 @@ type
     procedure onScriptResume();
     procedure onScriptStop();
 
+    procedure onScriptButton( Sender : TObject );
+
   published
-    property profileSettings : TProfileSettings read mProfileSettings write mProfileSettings;
+    property profileSettings : TSettings read mProfileSettings write mProfileSettings;
 
   end;
 
@@ -111,6 +116,19 @@ begin
   scriptEngine.OnScriptResumed := onScriptResume;
   scriptEngine.OnScriptStopped := onScriptStop;
 
+  makroButtons[0] := Button5;
+  makroButtons[1] := button6;
+  makroButtons[2] := Button7;
+  makroButtons[3] := button8;
+  makroButtons[4] := Button9;
+  makroButtons[5] := button10;
+  makroButtons[6] := Button11;
+  makroButtons[7] := button12;
+  makroButtons[8] := Button13;
+  makroButtons[9] := button14;
+  makroButtons[10] := Button15;
+  makroButtons[11] := button16;
+
   toolbox:=nil;
 end;
 
@@ -129,7 +147,7 @@ procedure TTerminalFrame.openCloseToolbox;
 begin
   if toolbox=nil then begin
     //create toolbox
-    toolbox:= TToolboxFrame( tabFactory.createTab( mProfileSettings.name + '[ToolBox]', 'TToolboxFrame'));
+    toolbox:= TToolboxFrame( tabFactory.createTab( mProfileSettings.properties.name + '[ToolBox]', 'TToolboxFrame'));
     toolbox.profileSettings := self.profileSettings;
   end else begin
     //destroy toolbox
@@ -220,10 +238,51 @@ begin
   connector.send( msg );
 end;
 
-procedure TTerminalFrame.update;
+procedure TTerminalFrame.doClientUpdate;
 begin
     label3.Caption := connector.Target + ' '+ connector.connectedStr;
+    combobox2.Items.Clear;
+    comboBox2.Items.Add( connector.Name );
+    comboBox2.ItemIndex := 0;
+
 end;
+
+procedure TTerminalFrame.setupMakros;
+var
+  i: Integer;
+begin
+
+  for i := 0 to mProfileSettings.terminalButtons.count - 1 do begin
+    self.makroButtons[i].Caption := mProfileSettings.terminalButtons.list[i].caption;
+    self.makroButtons[i].Enabled := mProfileSettings.terminalButtons.list[i].enabled;
+    self.makroButtons[i].OnClick := self.onScriptButton;
+  end;
+
+end;
+
+procedure TTerminalFrame.onScriptButton(Sender: TObject);
+var
+  i: Integer;
+  buttonNr : integer;
+  button : TScriptButtonSettings;
+  script : string;
+begin
+  for i := 0 to mProfileSettings.terminalButtons.count - 1 do begin
+    if Sender=self.makroButtons[i] then begin
+      buttonNr := i;
+      button := mProfileSettings.terminalButtons.list[i];
+      break;
+    end;
+  end;
+
+  if (button <> nil) then begin
+    script := button.filename;
+    self.addLog( 'button : ' + button.caption + '(' + script + ')' );
+  end;
+
+
+end;
+
 
 procedure TTerminalFrame.Button17Click(Sender: TObject);
 begin
@@ -265,13 +324,11 @@ end;
 procedure TTerminalFrame.Button2Click(Sender: TObject);
 begin
   connector.connect();
-  update();
 end;
 
 procedure TTerminalFrame.Button3Click(Sender: TObject);
 begin
   connector.disconnect();
-  update();
 end;
 
 

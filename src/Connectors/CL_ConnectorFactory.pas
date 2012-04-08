@@ -75,7 +75,7 @@ begin
     connector := TGenericConnector( connectorClass.Create());
 
     connector.create();
-    connector.onChanged := doRefresh;
+    connector.OnUpdateConnectorList := doRefresh;
 
     connectorList.add( connector );
 

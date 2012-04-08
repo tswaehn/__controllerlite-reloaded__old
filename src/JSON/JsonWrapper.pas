@@ -2,7 +2,7 @@ unit JsonWrapper;
 
 interface
 
-uses  SysUtils, SuperObject;
+uses  SysUtils, Classes, SuperObject;
 
 type
   TJsonWrapper = class (TObject)
@@ -11,18 +11,59 @@ type
     function loadFile( filename : string ):boolean;
     procedure storeFile( filename:string);
     
-    function getStrValue( namePath : string; alternativeDefaultStr : string ):string;
+    function getStr( namePath : string; alternativeDefaultStr : string ):string;
+    function getStrList( namePath : string; alternativeDefaultStr : string ):TStringList;
+
+    function getBool( namePath : string; alternativeDefaultBool : boolean) : boolean;
 
     private
       procedure process();
+      procedure CreateDefault();
 
     private
       text : string;
       json : ISuperObject;
   end;
 
+type
+  TJsonObject = class (TObject)
+
+    // need overwrite
+    constructor Create( json_ :TJsonWrapper; namePath_ : string );
+    procedure load(); virtual; abstract;
+
+
+    protected
+      function jsonKey( key : string ): string;
+      function jsonArray( index: integer) : string;
+
+    protected
+      json : TJsonWrapper;
+      namePath : string;
+
+  end;
 
 implementation
+
+constructor TJsonObject.Create(json_: TJsonWrapper; namePath_: string);
+begin
+  json := json_;
+  namePath := namePath_;
+
+  load();
+end;
+
+function TJsonObject.jsonKey(key: string): string;
+begin
+
+  result := namePath +'.'+ key;
+end;
+
+function TJsonObject.jsonArray(index: Integer): string;
+begin
+
+  result := namePath + '['+ inttostr(index) +']';
+end;
 
 constructor TJsonWrapper.Create;
 begin
@@ -91,7 +132,7 @@ begin
 
 end;
 
-function TJsonWrapper.getStrValue(namePath: string; alternativeDefaultStr: string):string;
+function TJsonWrapper.getStr(namePath: string; alternativeDefaultStr: string):string;
 var value:string;
     obj : ISuperObject;
 begin
@@ -106,24 +147,69 @@ begin
   result := value;
 end;
 
+
+function TJsonWrapper.getStrList(namePath: string; alternativeDefaultStr: string):TStringList;
+var list:TStringList;
+    arr : TSuperArray;
+    obj : ISuperObject;
+    i: Integer;
+begin
+  list := TStringList.Create;
+
+  try
+    arr := json[namePath].AsArray;
+    for i := 0 to arr.Length - 1 do begin
+      list.Add( arr.S[i] );
+    end;
+
+  except
+    list.Add( alternativeDefaultStr );
+    obj := SA( [alternativeDefaultStr] );
+    json[namePath] := obj;
+  end;
+
+  result := list;
+end;
+
+function TJsonWrapper.getBool( namePath : string; alternativeDefaultBool : boolean) : boolean;
+var value:boolean;
+    obj : ISuperObject;
+begin
+  try
+    value := json[namePath].AsBoolean;
+  except
+    value := alternativeDefaultBool;
+    obj := SO(value);
+    json[namePath] := obj;
+  end;
+
+  result := value;
+
+end;
+
+
 procedure TJsonWrapper.process;
 var temp : WideString;
     t : PSOChar;
 begin
 
   // the following type casting is neccessary
-  // not sure why 
+  // not sure why
   temp := WideString(text);
   t := PSOChar(temp);
 
   json := TSuperObject.ParseString( t, true );
 
   if (json = nil) then begin
-    create
+    createDefault();
   end;
 
 end;
 
+procedure TJsonWrapper.CreateDefault;
+begin
+  json := TSuperObject.ParseString('{}', true);
+end;
 
 procedure dummy();
 begin

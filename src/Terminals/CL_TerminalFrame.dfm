@@ -27,7 +27,7 @@ object TerminalFrame: TTerminalFrame
       TabOrder = 0
     end
     object Button6: TButton
-      Left = 178
+      Left = 97
       Top = 24
       Width = 75
       Height = 25
@@ -35,7 +35,7 @@ object TerminalFrame: TTerminalFrame
       TabOrder = 1
     end
     object Button7: TButton
-      Left = 97
+      Left = 178
       Top = 24
       Width = 75
       Height = 25
@@ -51,7 +51,7 @@ object TerminalFrame: TTerminalFrame
       TabOrder = 3
     end
     object Button9: TButton
-      Left = 178
+      Left = 16
       Top = 55
       Width = 75
       Height = 25
@@ -59,7 +59,7 @@ object TerminalFrame: TTerminalFrame
       TabOrder = 4
     end
     object Button10: TButton
-      Left = 16
+      Left = 178
       Top = 55
       Width = 75
       Height = 25
@@ -67,7 +67,7 @@ object TerminalFrame: TTerminalFrame
       TabOrder = 5
     end
     object Button11: TButton
-      Left = 97
+      Left = 16
       Top = 86
       Width = 75
       Height = 25
@@ -75,7 +75,7 @@ object TerminalFrame: TTerminalFrame
       TabOrder = 6
     end
     object Button12: TButton
-      Left = 178
+      Left = 97
       Top = 86
       Width = 75
       Height = 25
@@ -83,7 +83,7 @@ object TerminalFrame: TTerminalFrame
       TabOrder = 7
     end
     object Button13: TButton
-      Left = 16
+      Left = 178
       Top = 86
       Width = 75
       Height = 25

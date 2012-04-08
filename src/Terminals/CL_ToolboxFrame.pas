@@ -17,19 +17,19 @@ type
     constructor Create(AOwner: TComponent); override;
 
   private
-    procedure setProfileSettings( profileSettings:TProfileSettings );
+    procedure setProfileSettings( profileSettings:TSettings );
     procedure refillParameterList();
 
   private
     { Private-Deklarationen }
     mScriptEngine : TScriptEngine;
-    mProfileSettings : TProfileSettings;
+    mProfileSettings : TSettings;
   public
     { Public-Deklarationen }
 
   published
     property ScriptEngine : TScriptEngine read mScriptEngine write mScriptEngine;
-    property profileSettings : TProfileSettings read mProfileSettings write setProfileSettings;
+    property profileSettings : TSettings read mProfileSettings write setProfileSettings;
 
   end;
 
@@ -43,7 +43,7 @@ begin
 
 end;
 
-procedure TToolboxFrame.setProfileSettings(profileSettings: TProfileSettings);
+procedure TToolboxFrame.setProfileSettings(profileSettings: TSettings);
 begin
   self.mProfileSettings := profileSettings;
   refillParameterList();

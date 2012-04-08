@@ -23,12 +23,15 @@ type TGenericConnector = class (TPersistent)
 
     procedure send( data : string ); virtual; abstract;
 
+  private
+    procedure setUpdateClient( client : TConnectorRefresh );
 
   protected
     myName : string;
     myTarget : string;
     myUser : string;
-    FOnChanged : TConnectorRefresh;
+    FOnUpdateConnectorList : TConnectorRefresh;
+    FOnUpdateClient : TConnectorRefresh;
     FOnRecived: TConnectorRecive;
 
     procedure doOnChanged();
@@ -44,7 +47,8 @@ type TGenericConnector = class (TPersistent)
     property Target : string read myTarget write setTarget;
     property User : string read myUser write setUser;
 
-    property onChanged: TConnectorRefresh read FOnChanged write FOnChanged;
+    property onUpdateConnectorList : TConnectorRefresh read FOnUpdateConnectorList write FOnUpdateConnectorList;
+    property onUpdateClient: TConnectorRefresh read FOnUpdateClient write setUpdateClient;
     property onRecived: TConnectorRecive read FOnRecived write FOnRecived;
 
 end;
@@ -78,9 +82,19 @@ end;
 
 procedure TGenericConnector.doOnChanged;
 begin
-  if Assigned(FOnChanged)  then begin
-      FOnChanged();
+  if Assigned (FOnUpdateConnectorList) then begin
+    FOnUpdateConnectorList();
   end;
+
+  if Assigned(FOnUpdateClient)  then begin
+      FOnUpdateClient();
+  end;
+end;
+
+procedure TGenericConnector.setUpdateClient( client : TConnectorRefresh  );
+begin
+  FOnUpdateClient := client;
+  self.doOnChanged;
 end;
 
 procedure TGenericConnector.setName(newName: string);

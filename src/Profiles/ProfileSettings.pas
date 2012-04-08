@@ -2,14 +2,37 @@ unit ProfileSettings;
 
 interface
 
-uses Classes, SysUtils, JsonWrapper;
+uses Classes, SysUtils, StdCtrls, JsonWrapper;
 
 
 const
+  JSON_NONE = 'none';
 
-  JSON_VERSION = 'version';
-  JSON_NAME = 'name';
-  JSON_DEFAULT_CONNECTOR = 'defaultConnector';
+  JSON_PROFILE_PROPERTIES = 'profile';
+    JSON_VERSION = 'version';
+    JSON_NAME = 'name';
+    JSON_SCRIPT_PATH = 'scriptPath';
+
+  JSON_DEFAULT_CONNECTOR = 'connector.defaultConnector';
+
+  JSON_TERMINAL_BUTTONS = 'terminal.buttons';
+    JSON_TERMINAL_BUTTON_CAPTION = 'caption';
+    JSON_TERMINAL_BUTTON_ENABLED = 'enabled';
+    JSON_TERMINAL_BUTTON_FILENAME = 'filename';
+
+
+// ------------------ TProfileProperties -----------------------
+type TProfileProperties = class (TJsonObject)
+
+  constructor Create( json_ :TJsonWrapper; namePath_ : string );
+
+  procedure load(); override;
+
+  public
+    name:string;
+    version : string;
+    scriptPath : string;
+end;
 
 // ------------------ TScript -----------------------
 
@@ -19,9 +42,6 @@ type TScript = class (TStringList)
   destructor Destroy(); override;
 
   procedure load();
-
-
-
 
   public
     name : string;
@@ -69,8 +89,37 @@ type TParameterGroup = class (TList)
 
 end;
 
+
+// ------------------ TScriptButtonSettings -----------------------
+type TScriptButtonSettings = class (TJsonObject)
+
+    constructor Create( json_ :TJsonWrapper; namePath_ : string );
+    procedure load(); override;
+
+  public
+    enabled:boolean;
+    caption : string;
+    filename : string;
+
+    script : TScript;
+
+    button : TButton;
+
+end;
+
+// ------------------ TScriptButtonList -----------------------
+type TScriptButtonList = class(TJsonObject)
+
+    constructor Create( json_ :TJsonWrapper; namePath_ : string; count_ : integer );
+    procedure load(); override;
+
+    public
+      list : array of TScriptButtonSettings;
+      count : integer;
+end;
+
 // ------------------ TProfileSettings -----------------------
-type TProfileSettings = class (TObject)
+type TSettings = class (TObject)
 
   constructor Create();
   destructor Destroy(); override;
@@ -83,10 +132,12 @@ type TProfileSettings = class (TObject)
   public
     basepath : string;
 
-    name:string;
-   defaultConnector : string;
-   defaultTarget : string;
-   parameterGroup : TParameterGroup;
+    defaultConnector : string;
+    defaultTarget : string;
+    parameterGroup : TParameterGroup;
+    terminalButtons : TScriptButtonList;
+
+    properties: TProfileProperties;
 
   private
     json : TJsonWrapper;
@@ -105,7 +156,98 @@ implementation
 
 
 (*
+  --------------------------------------------------------------
+  TProfileSettings
+
+*)
+constructor TSettings.Create;
+begin
+  defaultConnector := JSON_NONE;
+  defaultTarget := JSON_NONE;
+  parameterGroup := TParameterGroup.Create;
+  parameterGroup.load;
+
+  basepath := '';
+  filename := 'settings.json.txt';
+
+  json := TJsonWrapper.Create();
+
+end;
+
+destructor TSettings.Destroy;
+begin
+  parameterGroup.Free;
+  json.Free;
+
+  inherited Destroy();
+end;
+
+function TSettings.getFileName: string;
+var temp : string;
+begin
+  temp := basepath + filename;
+  result := temp;
+end;
+
+procedure TSettings.createSettingsFile();
+begin
+
+
+  storeToFile();
+
+end;
+
+procedure TSettings.processJSONSettings;
+begin
+
+end;
+
+procedure TSettings.loadFromFile;
+var filename:string;
+begin
+  filename:= getFileName();
+
+  if json.loadFile(filename)=false then begin
+//    createSettingsFile();
+  end;
+
+  // start interpreting
+  self.properties := TProfileProperties.Create( json, JSON_PROFILE_PROPERTIES );
+
+  self.defaultConnector := json.getStr(JSON_DEFAULT_CONNECTOR, 'TSerialConnector');
+
+  self.terminalButtons := TScriptButtonList.Create( json, JSON_TERMINAL_BUTTONS, 12 );
+  storeTofile();
+end;
+
+procedure TSettings.storeToFile;
+var filename:string;
+begin
+  filename:= getFileName();
+
+  json.storeFile( filename );
+
+
+end;
+
+
+constructor TProfileProperties.Create(json_: TJsonWrapper; namePath_: string);
+begin
+  inherited Create( json_, namePath_ );
+
+end;
+
+procedure TProfileProperties.load;
+begin
+  version := json.getStr( jsonKey(JSON_VERSION), 'v1.0');
+  name := json.getStr( jsonKey(JSON_NAME), JSON_NONE);
+  scriptPath := json.getStr( jsonKey(JSON_SCRIPT_PATH), './scripts');
+end;
+
+(*
+  --------------------------------------------------------------
   TScript
+
 *)
 constructor TScript.Create;
 begin
@@ -131,7 +273,9 @@ end;
 
 
 (*
+  --------------------------------------------------------------
   TParameter
+
 *)
 constructor TParameter.Create;
 begin
@@ -152,7 +296,9 @@ begin
 end;
 
 (*
+  --------------------------------------------------------------
   TParameterList
+
 *)
 constructor TParameterList.Create();
 begin
@@ -194,7 +340,9 @@ begin
 end;
 
 (*
+  --------------------------------------------------------------
   TParameterGroup
+
 *)
 constructor TParameterGroup.Create;
 begin
@@ -230,76 +378,49 @@ function TParameterGroup.getList(index: Integer):TParameterList;
 begin
   result := TParameterList( self.Get(index ));
 end;
+
+
 (*
-  TProfileSettings
+  --------------------------------------------------------------
+  TScriptButtonSettings
+
 *)
-constructor TProfileSettings.Create;
+constructor TScriptButtonSettings.Create( json_ :TJsonWrapper; namePath_ : string );
 begin
-  name := 'unknown';
-  defaultConnector := 'none';
-  defaultTarget := 'none';
-  parameterGroup := TParameterGroup.Create;
-  parameterGroup.load;
-
-  basepath := '';
-  filename := 'settings.json.txt';
-
-  json := TJsonWrapper.Create();
-  
+  inherited Create( json_, namePath_ );
 end;
 
-destructor TProfileSettings.Destroy;
+procedure TScriptButtonSettings.load();
 begin
-  parameterGroup.Free;
-  json.Free;
-  
-  inherited Destroy();
+  caption := json.getStr( jsonKey(JSON_TERMINAL_BUTTON_CAPTION), JSON_NONE );
+  enabled := json.getBool( jsonKey(JSON_TERMINAL_BUTTON_ENABLED), false );
+  filename := json.getStr( jsonKey(JSON_TERMINAL_BUTTON_FILENAME), JSON_NONE);
 end;
 
-function TProfileSettings.getFileName: string;
-var temp : string;
+(*
+  --------------------------------------------------------------
+  TScriptButtonList
+
+*)
+constructor TScriptButtonList.Create( json_ :TJsonWrapper; namePath_ : string; count_ : integer );
 begin
-  temp := basepath + filename;
-  result := temp;
-end;
+  count := count_;
+  setlength( list, count );
 
-procedure TProfileSettings.createSettingsFile();
-begin
-
-
-  storeToFile();
+  inherited Create( json_, namePath_ );
 
 end;
 
-procedure TProfileSettings.processJSONSettings;
+procedure TScriptButtonList.load();
+var
+  i: Integer;
 begin
-
-end;
-
-procedure TProfileSettings.loadFromFile;
-var filename:string;
-begin
-  filename:= getFileName();
-
-  if json.loadFile(filename)=false then begin
-//    createSettingsFile();
+  for i := 0 to count - 1 do begin
+    if (list[i] <> nil) then begin
+      list[i].Free;
+    end;
+    list[i] := TScriptButtonSettings.Create( json, jsonArray( i ) );
   end;
-
-  // start interpreting
-  json.getStrValue(JSON_VERSION, '1.0');
-  self.name := json.getStrValue(JSON_NAME,'none');
-  self.defaultConnector := json.getStrValue(JSON_DEFAULT_CONNECTOR, 'TSerialConnector');
-
-  storeTofile();
-end;
-
-procedure TProfileSettings.storeToFile;
-var filename:string;
-begin
-  filename:= getFileName();
-
-  json.storeFile( filename );
-
 
 end;
 

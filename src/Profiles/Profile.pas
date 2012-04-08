@@ -18,14 +18,14 @@ type TProfile = class ( TObject )
   procedure setName( name : string );
   function getName():string;
 
-
   public
   terminal : TTerminalFrame;
 
-  settings : TProfileSettings;
+  settings : TSettings;
   isActive : boolean;
 
   protected
+
 
 end;
 
@@ -35,7 +35,7 @@ implementation
 constructor TProfile.Create(AOwner: TObject);
 begin
   isActive := false;
-  settings := TProfileSettings.Create;
+  settings := TSettings.Create;
 end;
 
 destructor TProfile.Destroy;
@@ -72,6 +72,9 @@ begin
     // hand over the connector to the terminal
     terminal.connector := connector;
     terminal.profileSettings := settings;
+    connector.onUpdateClient := terminal.doClientUpdate;
+
+    terminal.setupMakros;
 end;
 
 procedure TProfile.deactivate();
@@ -79,7 +82,7 @@ var
     connector: TGenericConnector;
 begin
   if (isActive=false) then exit;
-  
+
   isActive := false;
 
   connector := terminal.connector;
@@ -89,13 +92,12 @@ end;
 
 procedure TProfile.setName(name: string);
 begin
-  settings.name:=name;
+  settings.properties.name:=name;
 end;
 
 function TProfile.getName():string;
 begin
-  getName := settings.name;
+  getName := settings.properties.name;
 end;
-
 
 end.
