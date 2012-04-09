@@ -253,8 +253,8 @@ var
 begin
 
   for i := 0 to mProfileSettings.terminalButtons.count - 1 do begin
-    self.makroButtons[i].Caption := mProfileSettings.terminalButtons.list[i].caption;
-    self.makroButtons[i].Enabled := mProfileSettings.terminalButtons.list[i].enabled;
+    self.makroButtons[i].Caption := mProfileSettings.terminalButtons.items[i].caption;
+    self.makroButtons[i].Enabled := mProfileSettings.terminalButtons.items[i].enabled;
     self.makroButtons[i].OnClick := self.onScriptButton;
   end;
 
@@ -263,21 +263,20 @@ end;
 procedure TTerminalFrame.onScriptButton(Sender: TObject);
 var
   i: Integer;
-  buttonNr : integer;
-  button : TScriptButtonSettings;
-  script : string;
+  button : TScriptButton;
+  scriptFileName : string;
 begin
   for i := 0 to mProfileSettings.terminalButtons.count - 1 do begin
     if Sender=self.makroButtons[i] then begin
-      buttonNr := i;
-      button := mProfileSettings.terminalButtons.list[i];
+      button := mProfileSettings.terminalButtons.items[i];
       break;
     end;
   end;
 
   if (button <> nil) then begin
-    script := button.filename;
-    self.addLog( 'button : ' + button.caption + '(' + script + ')' );
+    scriptFileName := mProfileSettings.basepath + mProfileSettings.properties.scriptPath + button.filename;
+    self.addLog( 'button : ' + button.caption + '(' + scriptFileName + ')' );
+    self.addLog( scriptEngine.runScript( scriptFileName ) );
   end;
 
 

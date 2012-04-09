@@ -15,10 +15,17 @@ const
 
   JSON_DEFAULT_CONNECTOR = 'connector.defaultConnector';
 
+  JSON_BUTTONS = 'buttons';
   JSON_TERMINAL_BUTTONS = 'terminal.buttons';
     JSON_TERMINAL_BUTTON_CAPTION = 'caption';
     JSON_TERMINAL_BUTTON_ENABLED = 'enabled';
     JSON_TERMINAL_BUTTON_FILENAME = 'filename';
+
+  JSON_PARAMETER = 'parameter';
+    JSON_PARAMETER_NAME = 'name';
+
+
+  JSON_TOOLBOX = 'toolbox';
 
 
 // ------------------ TProfileProperties -----------------------
@@ -48,9 +55,11 @@ type TScript = class (TStringList)
 end;
 
 // ------------------ TParameter -----------------------
-type TParameter = class (TObject)
+type TParameter = class (TJsonObject)
 
-  constructor Create();
+  constructor Create( json_ :TJsonWrapper; namePath_ : string );
+  procedure load(); override;
+
   destructor Destroy(); override;
 
   public
@@ -65,33 +74,32 @@ type TParameter = class (TObject)
 end;
 
 // ------------------ TParameterList -----------------------
-type TParameterList = class (TList)
+type TParameterList = class ( TJsonObject )
 
-  constructor Create();
+  constructor Create( json_ :TJsonWrapper; namePath_ : string );
+  procedure load(); override;
 
-  procedure Clear();override;
-  procedure load();
-  function getParameter( index : integer ):TParameter;
+  procedure Clear();
+
+
+  private
+    function getItem( index : integer ):TParameter;
+    function getCount():integer;
+
+  private
+    list : TList;
 
   public
     name : string;
 
+  property count:integer read getCount;
+  property items[i:integer]: TParameter read getItem;
 end;
-// ------------------ TParameterGroup -----------------------
-type TParameterGroup = class (TList)
 
-  constructor Create();
-
-  procedure Clear(); override;
-  procedure load();
-  function getList( index : integer ):TParameterList;
-
-
-end;
 
 
 // ------------------ TScriptButtonSettings -----------------------
-type TScriptButtonSettings = class (TJsonObject)
+type TScriptButton = class (TJsonObject)
 
     constructor Create( json_ :TJsonWrapper; namePath_ : string );
     procedure load(); override;
@@ -113,10 +121,50 @@ type TScriptButtonList = class(TJsonObject)
     constructor Create( json_ :TJsonWrapper; namePath_ : string; count_ : integer );
     procedure load(); override;
 
+    private
+      function getCount():integer;
+      function getItem( index : integer):TScriptButton;
+
+    private
+      list : TList;
+      maxCount : integer;
+
     public
-      list : array of TScriptButtonSettings;
-      count : integer;
+      property count : integer read getCount;
+      property items[i:integer]:TScriptButton read getItem;
 end;
+
+
+// ------------------ TToolboxGroup -----------------------
+type TToolboxGroup = class(TJsonObject)
+
+    constructor Create( json_ :TJsonWrapper; namePath_ : string );
+    procedure load(); override;
+
+    public
+      parameterList : TParameterList;
+      buttonList : TScriptButtonList;
+      name : string;
+end;
+
+// ------------------ TToolboxGroupList -----------------------
+type TToolboxGroupList = class(TJsonObject)
+
+    constructor Create( json_ :TJsonWrapper; namePath_ : string );
+    procedure load(); override;
+
+    private
+      function getItem( index:integer ):TToolboxGroup;
+
+    private
+      list : TList;
+      fCount : integer;
+
+    public
+        property count:integer read fCount write fCount;
+        property items[i:integer]:TToolboxGroup read getItem ;
+end;
+
 
 // ------------------ TProfileSettings -----------------------
 type TSettings = class (TObject)
@@ -134,8 +182,10 @@ type TSettings = class (TObject)
 
     defaultConnector : string;
     defaultTarget : string;
-    parameterGroup : TParameterGroup;
+
     terminalButtons : TScriptButtonList;
+
+    toolboxGroups : TToolboxGroupList;
 
     properties: TProfileProperties;
 
@@ -164,8 +214,7 @@ constructor TSettings.Create;
 begin
   defaultConnector := JSON_NONE;
   defaultTarget := JSON_NONE;
-  parameterGroup := TParameterGroup.Create;
-  parameterGroup.load;
+
 
   basepath := '';
   filename := 'settings.json.txt';
@@ -176,7 +225,9 @@ end;
 
 destructor TSettings.Destroy;
 begin
-  parameterGroup.Free;
+
+  properties.Free;
+  terminalButtons.Free;
   json.Free;
 
   inherited Destroy();
@@ -203,20 +254,28 @@ begin
 end;
 
 procedure TSettings.loadFromFile;
-var filename:string;
+var temp:string;
 begin
-  filename:= getFileName();
+  temp:= getFileName();
 
-  if json.loadFile(filename)=false then begin
+  if json.loadFile(temp)=false then begin
 //    createSettingsFile();
   end;
 
   // start interpreting
+  if (properties <> nil) then properties.free;
   self.properties := TProfileProperties.Create( json, JSON_PROFILE_PROPERTIES );
 
+  //
   self.defaultConnector := json.getStr(JSON_DEFAULT_CONNECTOR, 'TSerialConnector');
 
+  if terminalButtons <> nil then terminalButtons.Free;
   self.terminalButtons := TScriptButtonList.Create( json, JSON_TERMINAL_BUTTONS, 12 );
+
+  //
+  if toolboxGroups <> nil then toolboxGroups.Free;
+  toolboxGroups := TToolboxGroupList.Create( json, JSON_TOOLBOX );
+
   storeTofile();
 end;
 
@@ -241,7 +300,7 @@ procedure TProfileProperties.load;
 begin
   version := json.getStr( jsonKey(JSON_VERSION), 'v1.0');
   name := json.getStr( jsonKey(JSON_NAME), JSON_NONE);
-  scriptPath := json.getStr( jsonKey(JSON_SCRIPT_PATH), './scripts');
+  scriptPath := json.getStr( jsonKey(JSON_SCRIPT_PATH), '.\\scripts\\');
 end;
 
 (*
@@ -277,7 +336,7 @@ end;
   TParameter
 
 *)
-constructor TParameter.Create;
+constructor TParameter.Create( json_ :TJsonWrapper; namePath_ : string );
 begin
   name := 'unknown';
   id :='0815';
@@ -287,6 +346,8 @@ begin
 
   readScript := TScript.Create;
   writeScript := TScript.Create;
+
+  inherited Create( json_, namePath_ );
 end;
 
 destructor TParameter.Destroy;
@@ -295,15 +356,21 @@ begin
   writeScript.Free;
 end;
 
+procedure TParameter.load;
+begin
+  name := json.getStr( jsonKey( JSON_PARAMETER_NAME ), JSON_NONE );
+
+end;
+
 (*
   --------------------------------------------------------------
   TParameterList
 
 *)
-constructor TParameterList.Create();
+constructor TParameterList.Create( json_ :TJsonWrapper; namePath_ : string );
 begin
-    name := 'unknown';
-    load;
+  list := TList.Create;
+  inherited Create( json_, namePath_ );
 end;
 
 
@@ -311,10 +378,10 @@ procedure TParameterList.Clear;
 var i:integer;
     parameter:TParameter;
 begin
-  for i := self.Count - 1  downto 1 do begin
-    parameter := TParameter( self.Get(i) );
+  for i := list.Count - 1  downto 0 do begin
+    parameter := getItem(i);
     parameter.Free;
-    self.Delete(i);
+    list.Delete(i);
   end;
 end;
 
@@ -323,74 +390,36 @@ var
   I: Integer;
   parameter:TParameter;
 begin
-  self.Clear;
+  list.Clear;
 
-  for I := 1 to 5 do begin
-    parameter:=TParameter.Create;
-    parameter.name:= 'test_'+inttostr(i);
-    parameter.id := inttostr(i);
-    self.Add( parameter );
+  for I := 0 to 3 do begin
+    parameter:=TParameter.Create( json, jsonArray(i) );
+    list.Add( parameter );
   end;
 
 end;
 
-function TParameterList.getParameter(index: Integer):TParameter;
+function TParameterList.getItem(index: Integer):TParameter;
 begin
-  result := TParameter( self.Get(index));
+  result := TParameter( list[index] );
 end;
 
-(*
-  --------------------------------------------------------------
-  TParameterGroup
-
-*)
-constructor TParameterGroup.Create;
+function TParameterList.getCount():integer;
 begin
-  inherited Create();
-  load;
+  result := list.Count;
 end;
-
-procedure TParameterGroup.Clear;
-var   parameterList:TParameterList;
-begin
-  while self.Count > 0 do begin
-    parameterList := TParameterList(self.first());
-    self.Remove( parameterList );
-    parameterList.Free;
-  end;
-end;
-
-procedure TParameterGroup.load;
-var   parameterList:TParameterList;
-    i:integer;
-begin
-  self.Clear;
-
-  for I := 1 to 3 do begin
-    parameterList := TParameterList.Create;
-    parameterList.name := 'list'+inttostr(i);
-    parameterList.load;
-    self.Add( parameterList );
-  end;
-end;
-
-function TParameterGroup.getList(index: Integer):TParameterList;
-begin
-  result := TParameterList( self.Get(index ));
-end;
-
 
 (*
   --------------------------------------------------------------
   TScriptButtonSettings
 
 *)
-constructor TScriptButtonSettings.Create( json_ :TJsonWrapper; namePath_ : string );
+constructor TScriptButton.Create( json_ :TJsonWrapper; namePath_ : string );
 begin
   inherited Create( json_, namePath_ );
 end;
 
-procedure TScriptButtonSettings.load();
+procedure TScriptButton.load();
 begin
   caption := json.getStr( jsonKey(JSON_TERMINAL_BUTTON_CAPTION), JSON_NONE );
   enabled := json.getBool( jsonKey(JSON_TERMINAL_BUTTON_ENABLED), false );
@@ -404,9 +433,9 @@ end;
 *)
 constructor TScriptButtonList.Create( json_ :TJsonWrapper; namePath_ : string; count_ : integer );
 begin
-  count := count_;
-  setlength( list, count );
-
+  list := TList.Create;
+  maxCount := count_;
+  
   inherited Create( json_, namePath_ );
 
 end;
@@ -415,13 +444,85 @@ procedure TScriptButtonList.load();
 var
   i: Integer;
 begin
-  for i := 0 to count - 1 do begin
-    if (list[i] <> nil) then begin
-      list[i].Free;
-    end;
-    list[i] := TScriptButtonSettings.Create( json, jsonArray( i ) );
+  for i := 0 to maxCount - 1 do begin
+    list.Add( TScriptButton.Create( json, jsonArray( i ) ));
   end;
 
+end;
+
+function TScriptButtonList.getCount():integer;
+begin
+  result := list.Count;
+end;
+
+function TScriptButtonList.getItem( index : integer):TScriptButton;
+begin
+  if (index < 0) or (index >= list.Count) then begin
+    result := nil;
+    exit;
+  end;
+
+  result := TScriptButton( list.Items[index] );
+end;
+
+
+(*
+  --------------------------------------------------------------
+  TToolboxGroup
+
+*)
+constructor TToolboxGroup.Create( json_ :TJsonWrapper; namePath_ : string);
+begin
+
+  inherited Create( json_, namePath_ );
+
+end;
+
+procedure TToolboxGroup.load();
+var
+  i: Integer;
+begin
+
+  buttonList := TScriptButtonList.Create( json, jsonKey( JSON_BUTTONS ), 24 );
+  parameterList := TParameterList.Create( json, jsonKey( JSON_PARAMETER) );
+
+  name := json.getStr( jsonKey('name'), JSON_NONE );
+end;
+
+(*
+  --------------------------------------------------------------
+  TToolboxGroupList
+
+*)
+constructor TToolboxGroupList.Create( json_ :TJsonWrapper; namePath_ : string );
+begin
+  list := TList.Create;
+
+  inherited Create( json_, namePath_ );
+
+end;
+
+procedure TToolboxGroupList.load();
+var
+  i: Integer;
+  toolboxGroup : TToolboxGroup;
+begin
+  count := 3;
+
+  for i := 0 to count - 1 do begin
+    toolboxGroup := TToolboxGroup.Create( json, jsonArray( i ) );
+    list.Add( toolboxGroup );
+  end;
+
+end;
+
+function TToolboxGroupList.getItem( index:integer ):TToolboxGroup;
+begin
+  if (index <= 0) or (index > list.Count) then begin
+    result:=nil;
+  end;
+
+  result := TToolboxGroup( list.Items[index] );
 end;
 
 

@@ -17,8 +17,9 @@ type TScriptEngine = class( TThread )
   constructor Create();
   destructor Destroy();  override;
 
+  function runScript( source : TStrings ):string; overload;
+  function runScript( scriptFileName : string ):string; overload;
 
-  procedure runScript( source : TStrings );
   procedure pauseScript();
   procedure resumeScript();
   procedure stopScript();
@@ -43,6 +44,7 @@ type TScriptEngine = class( TThread )
 
     function checkReciveString( msg : string ): boolean;
   private
+    lastError : integer;
     active: boolean;
     waitForString : string;
 
@@ -188,12 +190,52 @@ begin
   result:= active;
 end;
 
-procedure TScriptEngine.runScript(source: TStrings);
+function TScriptEngine.runScript(source: TStrings):string;
 begin
+  if isActive then begin
+    result:='still running a script';
+    exit;
+  end;
 
   pascalScript.Script := source;
   self.Resume();
 
+  result:= 'done';
+end;
+
+function TScriptEngine.runScript(scriptFileName: string):string;
+var F:textfile;
+    lines : TStringList;
+    line: string;
+begin
+  if fileexists( scriptFileName ) = false then begin
+    result:='file does not exit';
+    exit;
+  end;
+
+  if isActive then begin
+    result:='still running a script';
+    exit;
+  end;
+
+  lines := TStringList.Create;
+
+  assignFile( F, scriptFileName );
+  reset( F );
+
+  while eof(F) = false do begin
+    readln(F, line);
+    lines.Add( line );
+  end;
+
+  closeFile( F );
+
+  // no run the script
+  runScript( lines );
+
+  lines.Free;
+
+  result:='done';
 end;
 
 procedure TScriptEngine.pauseScript;

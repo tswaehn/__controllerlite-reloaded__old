@@ -5,14 +5,11 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Grids, ValEdit, ComCtrls, ImgList, CategoryButtons,
-  ButtonGroup, ScriptEngine, ProfileSettings;
+  ButtonGroup, ScriptEngine, ProfileSettings, CL_ToolboxInlay;
 
 type
   TToolboxFrame = class(TFrame)
-    ListView1: TListView;
-    ImageList1: TImageList;
-    ValueListEditor1: TValueListEditor;
-    Button1: TButton;
+    PageControl1: TPageControl;
 
     constructor Create(AOwner: TComponent); override;
 
@@ -20,10 +17,13 @@ type
     procedure setProfileSettings( profileSettings:TSettings );
     procedure refillParameterList();
 
+    procedure createTab( toolboxGroup : TToolboxGroup );
   private
     { Private-Deklarationen }
     mScriptEngine : TScriptEngine;
     mProfileSettings : TSettings;
+
+
   public
     { Public-Deklarationen }
 
@@ -36,6 +36,7 @@ type
 implementation
 
 {$R *.dfm}
+
 
 constructor TToolboxFrame.Create(AOwner: TComponent);
 begin
@@ -50,26 +51,37 @@ begin
 end;
 
 procedure TToolboxFrame.refillParameterList;
-var parameterGroup:TParameterGroup;
-    parameterList : TParameterList;
-    parameter : TParameter;
-    I,k: Integer;
+var
+  i: Integer;
+  toolboxGroup : TToolboxGroup;
 begin
-  if Assigned( profileSettings ) = false then exit;
+  for i := 0 to profileSettings.toolboxGroups.Count - 1 do begin
+    toolboxGroup := profileSettings.toolboxGroups.items[i];
 
-  // clear list
- ValueListEditor1.Strings.Clear;
+    createTab( toolboxGroup );
 
-  // refill list
-  parameterGroup := mProfileSettings.parameterGroup;
-  for I := 0 to parameterGroup.Count - 1 do begin
-    parameterList := parameterGroup.getList( i );
-    for k := 0 to parameterList.Count - 1 do begin
-      parameter := parameterList.getParameter(k);
-      ValueListEditor1.InsertRow( parameter.name + ' ' + parameter.id, parameter.value, true );
-    end;
   end;
 
 end;
+
+procedure TToolboxFrame.createTab(toolboxGroup : TToolboxGroup);
+var tabsheet : ttabsheet;
+    frame : TToolboxInlay;
+begin
+
+  // erzeuge tab
+  tabsheet := TTabsheet.Create( pagecontrol1 );
+  tabsheet.PageControl := pageControl1;
+  tabsheet.Caption := toolboxGroup.name;
+  tabsheet.ImageIndex := -1;
+
+  frame := TToolboxInlay.Create( nil );
+  //frame.Create( nil );
+  frame.Parent := tabsheet;
+  frame.toolboxGroup := toolboxGroup;
+  frame.display;
+
+end;
+
 
 end.

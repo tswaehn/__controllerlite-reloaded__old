@@ -90,10 +90,10 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object PageControl1: TPageControl
-    Left = 18
-    Top = 14
-    Width = 750
-    Height = 550
+    Left = 0
+    Top = 0
+    Width = 794
+    Height = 572
     Images = ImageList1
     MultiLine = True
     TabOrder = 0

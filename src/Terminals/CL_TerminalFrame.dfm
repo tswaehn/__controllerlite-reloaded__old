@@ -195,7 +195,7 @@ object TerminalFrame: TTerminalFrame
       Font.Height = -11
       Font.Name = 'Courier New'
       Font.Style = []
-      ItemHeight = 14
+      ItemHeight = 0
       ParentFont = False
       TabOrder = 1
     end
@@ -300,7 +300,7 @@ object TerminalFrame: TTerminalFrame
       Width = 145
       Height = 21
       Style = csDropDownList
-      ItemHeight = 13
+      ItemHeight = 0
       TabOrder = 3
     end
   end

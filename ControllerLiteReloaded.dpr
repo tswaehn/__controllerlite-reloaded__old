@@ -17,7 +17,8 @@ uses
   ScriptEngine in 'src\Terminals\ScriptEngine.pas',
   CL_ToolboxFrame in 'src\Terminals\CL_ToolboxFrame.pas' {ToolboxFrame: TFrame},
   superobject in 'src\JSON\superobject.pas',
-  JsonWrapper in 'src\JSON\JsonWrapper.pas';
+  JsonWrapper in 'src\JSON\JsonWrapper.pas',
+  CL_ToolboxInlay in 'src\Terminals\CL_ToolboxInlay.pas' {ToolboxInlay: TFrame};
 
 {$R *.res}
 
