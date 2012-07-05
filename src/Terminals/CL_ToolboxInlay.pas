@@ -47,7 +47,7 @@ type
   public
     { Public-Deklarationen }
 
-    toolboxGroup : TToolboxGroup;
+    toolboxTab : TToolboxTab;
   end;
 
 implementation
@@ -99,14 +99,14 @@ begin
   end;
 
   // display parameters
-  parameterList := toolboxGroup.parameterList;
+  parameterList := toolboxTab.parameterList;
 
   for i := 0 to parameterList.Count - 1 do begin
     parameter := parameterList.items[i];
     ValueListEditor1.InsertRow( parameter.name, parameter.value, true );
   end;
 
-  buttonList := toolboxGroup.buttonList;
+  buttonList := toolboxTab.buttonList;
   for i := 0 to 23 do begin
     mButtons[i].Caption := buttonList.items[i].caption;
     mButtons[i].Enabled := buttonList.items[i].enabled;

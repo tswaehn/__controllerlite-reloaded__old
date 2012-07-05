@@ -195,7 +195,7 @@ object TerminalFrame: TTerminalFrame
       Font.Height = -11
       Font.Name = 'Courier New'
       Font.Style = []
-      ItemHeight = 0
+      ItemHeight = 14
       ParentFont = False
       TabOrder = 1
     end
@@ -211,7 +211,7 @@ object TerminalFrame: TTerminalFrame
   end
   object GroupBox4: TGroupBox
     Left = 466
-    Top = 251
+    Top = 215
     Width = 271
     Height = 65
     Caption = ' Control '
@@ -300,8 +300,35 @@ object TerminalFrame: TTerminalFrame
       Width = 145
       Height = 21
       Style = csDropDownList
-      ItemHeight = 0
+      ItemHeight = 13
       TabOrder = 3
+    end
+  end
+  object GroupBox6: TGroupBox
+    Left = 466
+    Top = 288
+    Width = 271
+    Height = 46
+    Caption = ' Logfile '
+    TabOrder = 5
+    object Button19: TButton
+      Left = 177
+      Top = 13
+      Width = 75
+      Height = 25
+      Caption = 'Browse ...'
+      Enabled = False
+      TabOrder = 0
+      OnClick = PauseButtonClick
+    end
+    object CheckBox1: TCheckBox
+      Left = 16
+      Top = 20
+      Width = 97
+      Height = 17
+      Caption = 'enabled'
+      Enabled = False
+      TabOrder = 1
     end
   end
 end

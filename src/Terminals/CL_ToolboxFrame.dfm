@@ -7,9 +7,9 @@ object ToolboxFrame: TToolboxFrame
   TabStop = True
   object PageControl1: TPageControl
     Left = 0
-    Top = 62
+    Top = 24
     Width = 750
-    Height = 400
+    Height = 438
     Style = tsFlatButtons
     TabOrder = 0
   end

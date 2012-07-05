@@ -41,6 +41,9 @@ type
     Button15: TButton;
     Button16: TButton;
     Button22: TButton;
+    GroupBox6: TGroupBox;
+    Button19: TButton;
+    CheckBox1: TCheckBox;
 
     procedure Button17Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);

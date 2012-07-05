@@ -15,6 +15,8 @@ type
     Exit1: TMenuItem;
     Help1: TMenuItem;
     ImageList1: TImageList;
+    Advanced1: TMenuItem;
+    ImportControllerLiteiniProfile1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure Exit1Click(Sender: TObject);
     procedure Help1Click(Sender: TObject);

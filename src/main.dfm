@@ -3,8 +3,8 @@ object Form1: TForm1
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'Form1'
-  ClientHeight = 572
+  Caption = 'ControllerLiteReloaded'
+  ClientHeight = 592
   ClientWidth = 794
   Color = clCream
   Font.Charset = DEFAULT_CHARSET
@@ -104,6 +104,13 @@ object Form1: TForm1
     object Exit1: TMenuItem
       Caption = 'Exit'
       OnClick = Exit1Click
+    end
+    object Advanced1: TMenuItem
+      Caption = 'Advanced'
+      object ImportControllerLiteiniProfile1: TMenuItem
+        Caption = 'Import *.ini Profile'
+        Enabled = False
+      end
     end
     object Help1: TMenuItem
       Caption = 'Help'

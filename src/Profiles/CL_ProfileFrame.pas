@@ -15,7 +15,6 @@ type
     Stop1: TMenuItem;
     N1: TMenuItem;
     Preferences1: TMenuItem;
-    Save1: TMenuItem;
 
     constructor Create( AOwner : TComponent ); override;
     destructor Destroy(); override;

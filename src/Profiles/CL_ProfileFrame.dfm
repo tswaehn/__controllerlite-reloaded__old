@@ -575,11 +575,8 @@ object ProfileFactory: TProfileFactory
       Caption = '-'
     end
     object Preferences1: TMenuItem
-      Caption = 'Preferences'
-    end
-    object Save1: TMenuItem
-      Caption = 'Save'
-      OnClick = Save1Click
+      Caption = 'Properties'
+      Enabled = False
     end
   end
 end

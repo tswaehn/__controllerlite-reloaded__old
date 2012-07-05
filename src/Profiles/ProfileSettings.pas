@@ -136,7 +136,7 @@ end;
 
 
 // ------------------ TToolboxGroup -----------------------
-type TToolboxGroup = class(TJsonObject)
+type TToolboxTab = class(TJsonObject)
 
     constructor Create( json_ :TJsonWrapper; namePath_ : string );
     procedure load(); override;
@@ -148,13 +148,13 @@ type TToolboxGroup = class(TJsonObject)
 end;
 
 // ------------------ TToolboxGroupList -----------------------
-type TToolboxGroupList = class(TJsonObject)
+type TToolboxTabList = class(TJsonObject)
 
     constructor Create( json_ :TJsonWrapper; namePath_ : string );
     procedure load(); override;
 
     private
-      function getItem( index:integer ):TToolboxGroup;
+      function getItem( index:integer ):TToolboxTab;
 
     private
       list : TList;
@@ -162,7 +162,7 @@ type TToolboxGroupList = class(TJsonObject)
 
     public
         property count:integer read fCount write fCount;
-        property items[i:integer]:TToolboxGroup read getItem ;
+        property items[i:integer]:TToolboxTab read getItem ;
 end;
 
 
@@ -185,7 +185,7 @@ type TSettings = class (TObject)
 
     terminalButtons : TScriptButtonList;
 
-    toolboxGroups : TToolboxGroupList;
+    toolboxTabs : TToolboxTabList;
 
     properties: TProfileProperties;
 
@@ -273,8 +273,8 @@ begin
   self.terminalButtons := TScriptButtonList.Create( json, JSON_TERMINAL_BUTTONS, 12 );
 
   //
-  if toolboxGroups <> nil then toolboxGroups.Free;
-  toolboxGroups := TToolboxGroupList.Create( json, JSON_TOOLBOX );
+  if toolboxTabs <> nil then toolboxTabs.Free;
+  toolboxTabs := TToolboxTabList.Create( json, JSON_TOOLBOX );
 
   storeTofile();
 end;
@@ -300,7 +300,7 @@ procedure TProfileProperties.load;
 begin
   version := json.getStr( jsonKey(JSON_VERSION), 'v1.0');
   name := json.getStr( jsonKey(JSON_NAME), JSON_NONE);
-  scriptPath := json.getStr( jsonKey(JSON_SCRIPT_PATH), '.\\scripts\\');
+  scriptPath := json.getStr( jsonKey(JSON_SCRIPT_PATH), 'scripts\\');
 end;
 
 (*
@@ -471,14 +471,14 @@ end;
   TToolboxGroup
 
 *)
-constructor TToolboxGroup.Create( json_ :TJsonWrapper; namePath_ : string);
+constructor TToolboxTab.Create( json_ :TJsonWrapper; namePath_ : string);
 begin
 
   inherited Create( json_, namePath_ );
 
 end;
 
-procedure TToolboxGroup.load();
+procedure TToolboxTab.load();
 var
   i: Integer;
 begin
@@ -494,7 +494,7 @@ end;
   TToolboxGroupList
 
 *)
-constructor TToolboxGroupList.Create( json_ :TJsonWrapper; namePath_ : string );
+constructor TToolboxTabList.Create( json_ :TJsonWrapper; namePath_ : string );
 begin
   list := TList.Create;
 
@@ -502,27 +502,27 @@ begin
 
 end;
 
-procedure TToolboxGroupList.load();
+procedure TToolboxTabList.load();
 var
   i: Integer;
-  toolboxGroup : TToolboxGroup;
+  toolboxGroup : TToolboxTab;
 begin
   count := 3;
 
   for i := 0 to count - 1 do begin
-    toolboxGroup := TToolboxGroup.Create( json, jsonArray( i ) );
+    toolboxGroup := TToolboxTab.Create( json, jsonArray( i ) );
     list.Add( toolboxGroup );
   end;
 
 end;
 
-function TToolboxGroupList.getItem( index:integer ):TToolboxGroup;
+function TToolboxTabList.getItem( index:integer ):TToolboxTab;
 begin
   if (index <= 0) or (index > list.Count) then begin
     result:=nil;
   end;
 
-  result := TToolboxGroup( list.Items[index] );
+  result := TToolboxTab( list.Items[index] );
 end;
 
 

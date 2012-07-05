@@ -17,7 +17,7 @@ type
     procedure setProfileSettings( profileSettings:TSettings );
     procedure refillParameterList();
 
-    procedure createTab( toolboxGroup : TToolboxGroup );
+    procedure createTab( toolboxTab : TToolboxTab );
   private
     { Private-Deklarationen }
     mScriptEngine : TScriptEngine;
@@ -53,18 +53,18 @@ end;
 procedure TToolboxFrame.refillParameterList;
 var
   i: Integer;
-  toolboxGroup : TToolboxGroup;
+  toolboxTab : TToolboxTab;
 begin
-  for i := 0 to profileSettings.toolboxGroups.Count - 1 do begin
-    toolboxGroup := profileSettings.toolboxGroups.items[i];
+  for i := 0 to profileSettings.toolboxTabs.Count - 1 do begin
+    toolboxTab := profileSettings.toolboxTabs.items[i];
 
-    createTab( toolboxGroup );
+    createTab( toolboxTab );
 
   end;
 
 end;
 
-procedure TToolboxFrame.createTab(toolboxGroup : TToolboxGroup);
+procedure TToolboxFrame.createTab(toolboxTab : TToolboxTab);
 var tabsheet : ttabsheet;
     frame : TToolboxInlay;
 begin
@@ -72,13 +72,13 @@ begin
   // erzeuge tab
   tabsheet := TTabsheet.Create( pagecontrol1 );
   tabsheet.PageControl := pageControl1;
-  tabsheet.Caption := toolboxGroup.name;
+  tabsheet.Caption := toolboxTab.name;
   tabsheet.ImageIndex := -1;
 
   frame := TToolboxInlay.Create( nil );
   //frame.Create( nil );
   frame.Parent := tabsheet;
-  frame.toolboxGroup := toolboxGroup;
+  frame.toolboxTab := toolboxTab;
   frame.display;
 
 end;
